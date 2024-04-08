@@ -1,0 +1,39 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+.barraNavegacion {
+    background-color: #333;
+    text-align: center;
+}
+
+.listaNavegacion {
+    padding: 10px 0;
+    margin: 0;
+    list-style-type: none;
+}
+
+.itemNavegacion {
+    display: inline-block;
+    margin-right: 20px;
+}
+
+.linkNavegacion {
+    display: inline-block;
+    padding: 10px 20px;
+    text-decoration: none;
+    color: #fff;
+    border: 1px solid transparent;
+    border-radius: 5px;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+.linkNavegacion:hover {
+    background-color: #555;
+    border-color: #fff;
+}
+
+.container {
+    padding: 20px;
+}
