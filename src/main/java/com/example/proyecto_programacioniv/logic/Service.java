@@ -80,6 +80,7 @@ public class Service {
             productoRepository.save(pE);
         }
     }
+    //-----------------------------------------------------------------------------------------------------------
     public Iterable<ProveedorEntity> proveedorFindAll(){
         return proveedorRepository.findAll();
     }
