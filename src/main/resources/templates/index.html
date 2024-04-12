@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:fragment="head">
-    <link rel="stylesheet" th:href="@{/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
     <meta charset="UTF-8">
     <title>Facturación</title>
 </head>
@@ -13,7 +13,7 @@
 
         <div class="container-fluid">
             <a class="navbar-brand" href="#">
-                <img th:src="@{/log.png}"  alt="LogoEmpresa" height="40">
+                <img th:src="@{/images/log.png}" alt="LogoEmpresa" height="40">
                 <strong>Facturación S.A</strong>
             </a>
             <!--Enlaces-->
@@ -26,7 +26,10 @@
                         <a class="nav-link" th:href = "@{/presentation/clientes/show}">Clientes</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link"  th:href = "@{/presentation/proveedores/show}">Proveedores</a>
+                        <a class="nav-link"  th:href = "@{/administracion}">Proveedores</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link"  th:href = "@{/administracion/solicitudes}">Solicitudes</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link"  th:href = "@{/presentation/facturacion/searchProveedor}">Facturación</a>

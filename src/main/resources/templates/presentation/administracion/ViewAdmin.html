@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Administración</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+</head>
+<body>
+
+<h1>Proveedores Registrados</h1>
+
+<div class="search-container">
+    <form action="/administracion/buscar" method="post" class="search-form">
+        <input type="text" name="prov" id="prov" placeholder="Buscar Proveedor">
+        <button type="submit" class="search-button">Buscar</button>
+    </form>
+</div>
+
+<div>
+    <table class="table">
+        <thead class="thead-light">
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Correo</th>
+            <th scope="col">Telefono</th>
+            <th scope="col">Estado</th>
+            <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="p: ${provRegistrados}">
+            <th scope="row"><span th:text="${p.getId()}"></span></th>
+            <td><span th:text="${p.getNombre()}"></span></td>
+            <td><span th:text="${p.getCorreo()}"></span></td>
+            <td><span th:text="${p.getTelefono()}"></span></td>
+            <td><span th:text="${p.getSEstado()}"></span></td>
+            <td>
+                <a th:href="@{/administracion/proveedor(id=${p.getId()})}">
+                    <img src="/images/ver-mas.png" alt="ver más" width="20" height="20">
+                </a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>
