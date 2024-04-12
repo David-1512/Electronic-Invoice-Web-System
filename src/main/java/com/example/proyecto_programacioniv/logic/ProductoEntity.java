@@ -8,9 +8,8 @@ import java.util.Objects;
 @Entity
 @Table(name = "producto", schema = "proyecto_prograiv", catalog = "")
 public class ProductoEntity {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @Column(name = "cod")
+    @Column(name = "cod", nullable = false)
     private String cod;
     @Basic
     @Column(name = "nombre")
@@ -23,6 +22,16 @@ public class ProductoEntity {
     private ProveedorEntity proveedorByIdProveedor;
     @OneToMany(mappedBy = "productoByCodProducto")
     private Collection<LineaServicioEntity> lineaServiciosByCod;
+
+    public ProductoEntity() {
+    }
+
+    public ProductoEntity(String cod,  String nom, int precio, ProveedorEntity proveedorID) {
+        this.cod = cod;
+        this.precio = precio;
+        this.nombre = nom;
+        this.proveedorByIdProveedor= proveedorID;
+    }
 
     public String getCod() {
         return cod;
