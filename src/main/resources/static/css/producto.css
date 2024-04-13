@@ -1,0 +1,74 @@
+.search-container {
+    margin-left: 20px;
+    text-align: left;
+    border-radius: 4px; /* Bordes redondeados */
+    padding: 10px; /* Espaciado interno */
+    width: fit-content; /* Ancho ajustado al contenido */
+}
+
+.search-form {
+    display: inline-block;
+}
+
+.search-form input[type="text"] {
+    width: 250px;
+    padding: 10px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+h2 {
+    margin-top: 20px;
+    margin-left: 20px;
+}
+
+.search-button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.search-button:hover {
+    background-color: #0056b3;
+}
+
+.juntos {
+    margin-left: 20px;
+    display: flex;
+}
+
+.table {
+    margin-left: 20px;
+    /*flex: 1;*/
+    margin-right: 80px; /* Reducimos el espacio entre la tabla y el formulario */
+}
+
+.formulario{
+    margin-left: 80px;
+}
+
+.container > .form-row > .form-group {
+    margin-bottom: 10px;
+}
+.containerEdit {
+    background-color: #f2f2f2; /* Color gris de fondo */
+    padding: 20px; /* Añade espacio interno al contenedor si lo deseas */
+}
+.fixed-header th {
+    position: sticky;
+    top: 0;
+    background-color: white;
+    z-index: 1;
+}
+body {
+    overflow-y: auto;
+}
+
+
+

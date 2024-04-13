@@ -9,7 +9,7 @@ import java.util.Objects;
 @Table(name = "cliente", schema = "proyecto_prograiv", catalog = "") //tabla a la que hace referencia
 public class ClienteEntity {//implementar serializable luego
 
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    //@GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id//llave primaria
     @Column(name = "id")// se pone cuando no se llama igual en la base de datos
     private String id;
@@ -24,6 +24,22 @@ public class ClienteEntity {//implementar serializable luego
     private String telefono;
     @OneToMany(mappedBy = "clienteByIdCliente")
     private Collection<FacturasEntity> facturasById;
+
+    @ManyToOne
+    @JoinColumn(name = "id_proveedor", referencedColumnName = "id", nullable = false)
+    private ProveedorEntity proveedorByIdProveedor;
+
+    public ClienteEntity(String clienteID, String nombre, String correo, String telefono, ProveedorEntity prov) {
+        this.id=clienteID;
+        this.nombre=nombre;
+        this.correo=correo;
+        this.telefono=telefono;
+        this.proveedorByIdProveedor=prov;
+    }
+
+    public ClienteEntity() {
+
+    }
 
     public String getId() {
         return id;
@@ -55,6 +71,14 @@ public class ClienteEntity {//implementar serializable luego
 
     public void setTelefono(String telefono) {
         this.telefono = telefono;
+    }
+
+    public ProveedorEntity getProveedorByIdProveedor() {
+        return proveedorByIdProveedor;
+    }
+
+    public void setProveedorByIdProveedor(ProveedorEntity proveedorByIdProveedor) {
+        this.proveedorByIdProveedor = proveedorByIdProveedor;
     }
 
     @Override

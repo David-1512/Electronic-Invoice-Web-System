@@ -33,6 +33,8 @@ public class ProductoEntity {
         this.proveedorByIdProveedor= proveedorID;
     }
 
+
+
     public String getCod() {
         return cod;
     }

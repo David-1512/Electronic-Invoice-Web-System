@@ -4,74 +4,86 @@
     <meta charset="UTF-8">
     <title>Productos</title>
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
-    <!--    agregarle el template-->
+    <link rel="stylesheet" th:href="@{/css/producto.css}">
 </head>
 <body>
     <header th:replace="presentation/plantilla/template :: header"></header>
 
-    <h1>Productos</h1>
-    <div class="search-container">
-        <form action="/productos/buscar" method="post" class="search-form">
-            <input type="text" name="prod" id="prod" placeholder="Buscar Producto" >
-            <input type="hidden" name="idProv" th:value="${proveedor.get().getId()}">
-            <button type="submit" class="search-button">Buscar</button>
-        </form>
+    <h2>Productos</h2>
+
+    <div class="container-box">
+        <div class="search-container">
+            <form action="/productos/buscar" method="post" class="search-form">
+                <input type="text" name="prod" id="prod" placeholder="Buscar Producto" >
+                <input type="hidden" name="idProv" th:value="${proveedor.get().getId()}">
+                <button type="submit" class="search-button">Buscar</button>
+            </form>
+        </div>
     </div>
 
-    <table class="table">
-        <thead class="thead-light">
-        <tr>
-            <th scope="col"> </th> <th scope="col"> Código </th> <th scope="col"> Nombre </th> <th scope="col"> Precio </th> <th scope="col"> </th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="l: ${listaProductos}">
-            <td>
-                <a th:href="@{/productos/eliminarProducto(idProd=${l.getCod()},idProv=${proveedor.get().getId()})}">
-                    <!--                cambiar la ruta de la imagen-->
-                    <img src="/images/denegar.png" alt="boton-x" width="20" height="20">
-                </a>
-            </td>
-            <td> <span th:text="${l.getCod()}"></span> </td>
-            <td> <span th:text="${l.getNombre()}"></span> </td>
-            <td> <span th:text="${l.getPrecio()}"></span> </td>
-            <td>
-                <a th:href="@{/productos/seleccionar(idProd=${l.getCod()},idProv=${proveedor.get().getId()})}">
-                    <img src="/images/editar.png" alt="edicion" width="20" height="20">
-                </a>
-            </td>
-        </tr>
-        </tbody>
-    </table>
+        <div class="juntos">
+            <div class="col-md-6">
+                <div style="overflow-y: auto; max-height: 300px;">
+                        <table class="table table-hover table-fixed">
+                            <thead class="thead-light">
+                            <tr class="fixed-header">
+                                <th scope="col"> </th> <th scope="col"> Código </th> <th scope="col"> Nombre </th> <th scope="col"> Precio </th> <th scope="col"> </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="l: ${listaProductos}">
+                                <td>
+                                    <a th:href="@{/productos/eliminarProducto(idProd=${l.getCod()},idProv=${proveedor.get().getId()})}">
+                                        <img src="/images/denegar.png" alt="boton-x" width="20" height="20">
+                                    </a>
+                                </td>
+                                <td> <span th:text="${l.getCod()}"></span> </td>
+                                <td> <span th:text="${l.getNombre()}"></span> </td>
+                                <td> <span th:text="${l.getPrecio()}"></span> </td>
+                                <td>
+                                    <a th:href="@{/productos/seleccionar(idProd=${l.getCod()},idProv=${proveedor.get().getId()})}">
+                                        <img src="/images/editar.png" alt="edicion" width="20" height="20">
+                                    </a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+            </div>
 
+            <div class="formulario">
+                <h4>Formulario</h4>
+                <div class="containerEdit">
+                    <form th:action="@{/productos/agregar}" method="post">
+                        <div class="form-row">
+                            <div class="form-group col-md-12">
+                                <label for="codigo">Código:</label>
+                                <input type="text" class="form-control" id="codigo" name="codigo"
+                                       th:value="${producto != null ? producto.getCod() : ''}"
+                                       th:disabled="${producto != null}" required>
+                                <input type="hidden" name="codigo" th:if="${producto != null}" th:value="${producto.getCod()}">
+                                <input type="hidden" name="esProducto" th:value="${producto != null}">
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label for="nombre">Nombre:</label>
+                                <input type="text" class="form-control" id="nombre" name="nombre"
+                                       th:value="${producto != null ? producto.getNombre() : ''}" required>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label for="precio">Precio:</label>
+                                <input type="number" class="form-control" id="precio" name="precio"
+                                       th:value="${producto != null ? producto.getPrecio() : ''}" required min="0">
+                            </div>
+                        </div>
+                        <br>
+                        <input type="hidden" name="idProv" th:value="${proveedor.get().getId()}">
+                        <button type="submit" class="btn btn-primary">Guardar</button>
+                        <a th:href="@{/productos(idProv=${86952})}">Limpiar</a>
+                    </form>
+                </div>
+            </div>
+    </div>
 
-<div class="container">
-    <form th:action="@{/productos/agregar}" method="post">
-        <div class="form-row">
-            <div class="form-group col-md-4">
-                <label for="codigo">Código:</label>
-                <input type="text" class="form-control" id="codigo" name="codigo"
-                       th:value="${producto != null ? producto.getCod() : ''}"
-                       th:disabled="${producto != null}" required>
-                <input type="hidden" name="codigo" th:if="${producto != null}" th:value="${producto.getCod()}">
-                <input type="hidden" name="esProducto" th:value="${producto != null}">
-            </div>
-            <div class="form-group col-md-4">
-                <label for="nombre">Nombre:</label>
-                <input type="text" class="form-control" id="nombre" name="nombre"
-                       th:value="${producto != null ? producto.getNombre() : ''}" required>
-            </div>
-            <div class="form-group col-md-4">
-                <label for="precio">Precio:</label>
-                <input type="number" class="form-control" id="precio" name="precio"
-                       th:value="${producto != null ? producto.getPrecio() : ''}" required min="0">
-            </div>
-        </div>
-        <input type="hidden" name="idProv" th:value="${proveedor.get().getId()}">
-        <button type="submit" class="btn btn-primary">Guardar</button>
-        <a th:href="@{/productos(idProv=${86952})}">Limpiar</a>
-    </form>
-</div>
 
     <footer th:replace="presentation/plantilla/template :: footer"></footer>
 </body>

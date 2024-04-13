@@ -1,7 +1,14 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="index :: head"></head>
+<head th:replace="index :: head">
+    <meta charset="UTF-8">
+    <title>Productos</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+
+
+</head>
 <body>
+
 <header th:replace="presentation/plantilla/template :: header"></header>
 <div class="container mt-3 text-center">
     <div class="form-group row align-items-center">

@@ -1,7 +1,10 @@
 package com.example.proyecto_programacioniv.logic;
 import com.example.proyecto_programacioniv.data.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.xml.sax.SAXException;
 
+import javax.xml.parsers.ParserConfigurationException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -141,5 +144,66 @@ public class Service {
                 .filter(prov -> (prov.getNombre().toLowerCase().contains(searchTerm.toLowerCase())
                         || prov.getId().toLowerCase().contains(searchTerm.toLowerCase())))
                 .collect(Collectors.toList());
+    }
+
+
+    //------------------------------------CLIENTES--------------------------------------------
+    public List<ClienteEntity> mostrarClientesDeProveedor(String proveedorID) {
+        List<ClienteEntity> ls = (List<ClienteEntity>) proveedorRepository.findById(proveedorID).get().getClientesById();
+        return ls;
+    }
+
+    public List<ClienteEntity> buscarClientesProveedor(String proveedorID, String busqueda) {
+        Optional<ProveedorEntity> proveedorOptional = proveedorRepository.findById(proveedorID);
+        if (proveedorOptional.isPresent()) {
+            ProveedorEntity proveedor = proveedorOptional.get();
+            List<ClienteEntity> clientes = new ArrayList<>(proveedor.getClientesById());
+
+            return clientes.stream()
+                    .filter(cliente -> cliente.getNombre().toLowerCase().contains(busqueda.toLowerCase())
+                            || cliente.getId().toLowerCase().contains(busqueda.toLowerCase()))
+                    .collect(Collectors.toList());
+        }
+        return null;
+    }
+
+    public ClienteEntity seleccionarCliente(String proveedorID, String clienteID) {
+        Optional<ProveedorEntity> proveedorOptional = proveedorRepository.findById(proveedorID);
+        if (proveedorOptional.isPresent()) {
+            ProveedorEntity proveedor = proveedorOptional.get();
+            return proveedor.getClientesById().stream()
+                    .filter( cliente -> cliente.getId().equalsIgnoreCase(clienteID))
+                    .findFirst()
+                    .orElse(null);
+        }
+        return null;
+    }
+
+    public void agregarCliente(String clienteID, String nombre, String correo, String telefono, boolean esCliente, String proveedorID) throws Exception {
+        if (clienteRepository.findById(clienteID).isPresent()) {
+            if(esCliente) {
+                ClienteEntity cliente = clienteRepository.findById(clienteID).get();
+                cliente.setNombre(nombre);
+                cliente.setCorreo(correo);
+                cliente.setTelefono(telefono);
+                clienteRepository.save(cliente);
+                throw new Exception("Se logró editar");
+            }
+            else throw new Exception("No se logró editar");
+        }
+        else{
+            try {
+                ProveedorEntity prov = proveedorRepository.findById(proveedorID).get();
+                ClienteEntity pE = new ClienteEntity(clienteID, nombre, correo, telefono, prov);
+                clienteRepository.save(pE);
+                throw new Exception("Se guardo nuevo cliente con ID" + clienteID);
+            }catch(Exception e) {
+                throw new Exception("No se logró guardar cliente");
+            }
+        }
+    }
+
+    public void eliminarCliente(String clienteID, String proveedorID) {
+        clienteRepository.deleteById(clienteID);//si la elimina de acá la elimina de todos lador
     }
 }
