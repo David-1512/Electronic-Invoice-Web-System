@@ -16,6 +16,8 @@ public class Service {
     private ProveedorRepository proveedorRepository;
     @Autowired
     private ProductoRepository productoRepository;
+    @Autowired
+    private  HaciendaRepository haciendaRepository;
 
     public Iterable<ClienteEntity> clienteFindAll(){
         return clienteRepository.findAll();
@@ -23,6 +25,23 @@ public class Service {
 
     public Optional<ProveedorEntity> proveedorFindById(String id){
         return proveedorRepository.findById(id);
+    }
+    public Optional<ProveedorEntity> proveedorFindByIdandContrasena(String id, String contrasena){
+        return proveedorRepository.findByIdAndContrasena(id,contrasena);
+    }
+
+    public void agregarHacienda(String nif){
+        HaciendaEntity hE = new HaciendaEntity(nif, "");
+        haciendaRepository.save(hE);
+    }
+    public void agregarProveedor(ProveedorEntity p) throws Exception {
+        proveedorRepository.save(p);
+        p.getHaciendaByNif().getProveedorsByNif().add(p);
+        haciendaRepository.save(p.getHaciendaByNif());
+    }
+
+    public HaciendaEntity findHaciendaByNIF(String Nif){
+        return haciendaRepository.findByNif(Nif);
     }
 
     public Optional<ClienteEntity> clienteFindById(String id) {return clienteRepository.findById(id);}

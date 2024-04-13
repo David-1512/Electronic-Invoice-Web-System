@@ -2,13 +2,15 @@ package com.example.proyecto_programacioniv.logic;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
 @Table(name = "hacienda", schema = "proyecto_prograiv", catalog = "")
 public class HaciendaEntity {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    //@GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "nif")
     private String nif;
@@ -17,6 +19,18 @@ public class HaciendaEntity {
     private String actEconomica;
     @OneToMany(mappedBy = "haciendaByNif")
     private Collection<ProveedorEntity> proveedorsByNif;
+
+    public HaciendaEntity(String nif, String actEconomica) {
+        this.nif = nif;
+        this.actEconomica = actEconomica;
+        proveedorsByNif = new ArrayList<>();
+    }
+
+    public HaciendaEntity() {
+        this.nif = "";
+        this.actEconomica = "";
+        proveedorsByNif = new ArrayList<>();
+    }
 
     public String getNif() {
         return nif;

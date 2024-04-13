@@ -8,7 +8,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "proveedor", schema = "proyecto_prograiv", catalog = "")
 public class ProveedorEntity {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    //@GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "id")
     private String id;
@@ -82,6 +82,8 @@ public class ProveedorEntity {
         switch(estado){
             case 'E':
                 return "Espera";
+            case 'D':
+                return "Datos";
             case 'A':
                 return "Activo";
             case 'I':
