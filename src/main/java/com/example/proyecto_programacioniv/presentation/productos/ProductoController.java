@@ -48,10 +48,11 @@ public class ProductoController {
     @PostMapping("/productos/agregar")
     public String agregarProducto(@RequestParam("codigo") String cod,
                                   @RequestParam("nombre") String nom,
-                                  @RequestParam("precio") int precio,
+                                  @RequestParam("precio") double precio,
                                   @RequestParam("idProv") String proveedorID,
+                                  @RequestParam("esProducto") boolean esProducto,
                                   Model model){
-        service.agregarProducto(cod,nom,precio,proveedorID);
+        service.agregarProducto(cod,nom,precio,proveedorID,esProducto);
         model.addAttribute("listaProductos",service.mostrarProductosProveedor(proveedorID));
         model.addAttribute("proveedor", service.proveedorFindById(proveedorID));
 

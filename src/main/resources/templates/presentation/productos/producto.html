@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Productos</title>
-    <link rel="stylesheet" th:href="@{/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
     <!--    agregarle el template-->
 </head>
 <body>
-<!--<header th:replace="presentation/plantilla/template :: header"></header>-->
+    <header th:replace="presentation/plantilla/template :: header"></header>
 
     <h1>Productos</h1>
     <div class="search-container">
@@ -29,7 +29,7 @@
             <td>
                 <a th:href="@{/productos/eliminarProducto(idProd=${l.getCod()},idProv=${proveedor.get().getId()})}">
                     <!--                cambiar la ruta de la imagen-->
-                    <img src="/boton-x.png" alt="boton-x" width="20" height="20">
+                    <img src="/images/denegar.png" alt="boton-x" width="20" height="20">
                 </a>
             </td>
             <td> <span th:text="${l.getCod()}"></span> </td>
@@ -37,7 +37,7 @@
             <td> <span th:text="${l.getPrecio()}"></span> </td>
             <td>
                 <a th:href="@{/productos/seleccionar(idProd=${l.getCod()},idProv=${proveedor.get().getId()})}">
-                    <img src="/editar.png" alt="edicion" width="20" height="20">
+                    <img src="/images/editar.png" alt="edicion" width="20" height="20">
                 </a>
             </td>
         </tr>
@@ -54,6 +54,7 @@
                        th:value="${producto != null ? producto.getCod() : ''}"
                        th:disabled="${producto != null}" required>
                 <input type="hidden" name="codigo" th:if="${producto != null}" th:value="${producto.getCod()}">
+                <input type="hidden" name="esProducto" th:value="${producto != null}">
             </div>
             <div class="form-group col-md-4">
                 <label for="nombre">Nombre:</label>
@@ -63,14 +64,16 @@
             <div class="form-group col-md-4">
                 <label for="precio">Precio:</label>
                 <input type="number" class="form-control" id="precio" name="precio"
-                       th:value="${producto != null ? producto.getPrecio() : ''}" required>
+                       th:value="${producto != null ? producto.getPrecio() : ''}" required min="0">
             </div>
-            <input type="hidden" name="idProv" th:value="${proveedor.get().getId()}">
         </div>
+        <input type="hidden" name="idProv" th:value="${proveedor.get().getId()}">
         <button type="submit" class="btn btn-primary">Guardar</button>
+        <a th:href="@{/productos(idProv=${86952})}">Limpiar</a>
     </form>
 </div>
 
-<!--<footer th:replace="presentation/plantilla/template :: footer"></footer>-->
+    <footer th:replace="presentation/plantilla/template :: footer"></footer>
 </body>
 </html>
+

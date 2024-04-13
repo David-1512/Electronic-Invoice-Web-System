@@ -63,18 +63,83 @@ public class Service {
         return null;
     }
 
-    public void agregarProducto(String cod, String nom, int precio, String proveedorID) {
-        if (productoRepository.findById(cod).isPresent()) {
-            ProductoEntity producto = productoRepository.findById(cod).get();
-            producto.setPrecio(precio);
-            producto.setNombre(nom);
-            productoRepository.save(producto);
+    public void agregarProducto(String cod, String nom, double precio, String proveedorID, boolean esProducto) {
+        if (productoRepository.findById(cod).isPresent() ) {
+            if(esProducto) {
+                ProductoEntity producto = productoRepository.findById(cod).get();
+                producto.setPrecio(precio);
+                producto.setNombre(nom);
+                productoRepository.save(producto);
+            }
+            else return;// tal vez poner un mensajito que ya el codigo está siendo utilizado
         }
         else{
             ProveedorEntity prov= proveedorRepository.findById(proveedorID).get();
             ProductoEntity pE = new ProductoEntity(cod,nom,precio,prov);
-
             productoRepository.save(pE);
         }
+    }
+    //-----------------------------------------------------------------------------------------------------------
+    public Iterable<ProveedorEntity> proveedorFindAll(){
+        return proveedorRepository.findAll();
+    }
+
+
+    public void proveedorDelete(String id) {
+        proveedorRepository.deleteById(id);
+    }
+
+    public Iterable<ProveedorEntity> proveedorRegistrados() {
+        List<ProveedorEntity> list = (List<ProveedorEntity>) proveedorRepository.findAll();
+
+        List<ProveedorEntity> list2 = new ArrayList<>();
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i).getEstado() != 'E') {
+                list2.add(list.get(i));
+            }
+        }
+        return  list2;
+    }
+
+    public List<ProveedorEntity> proveedoresNuevos() {
+        List<ProveedorEntity> list = (List<ProveedorEntity>) proveedorRepository.findAll();
+
+        List<ProveedorEntity> list2 = new ArrayList<>();
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i).getEstado() == 'E') {
+                list2.add(list.get(i));
+            }
+        }
+        return list2;
+    }
+
+    public void aceptarProveedor(String id) {
+        ProveedorEntity proveedor = proveedorRepository.findById(id).get();
+        proveedor.setEstado('A');
+        proveedorRepository.save(proveedor);
+    }
+
+    public void desactivarProveedor(String id) {
+        ProveedorEntity proveedor = proveedorRepository.findById(id).get();
+        proveedor.setEstado('I');
+        proveedorRepository.save(proveedor);
+    }
+
+    public List<ProveedorEntity> buscarProveedorPor(String searchTerm) {
+            List<ProveedorEntity> provedores = (List<ProveedorEntity>) proveedorRegistrados();
+
+            return provedores.stream()
+                    .filter(prov -> (prov.getNombre().toLowerCase().contains(searchTerm.toLowerCase())
+                            || prov.getId().toLowerCase().contains(searchTerm.toLowerCase())))
+                    .collect(Collectors.toList());
+    }
+
+    public Object buscarProveedorNuevoPor(String searchTerm) {
+        List<ProveedorEntity> provedores = proveedoresNuevos();
+
+        return provedores.stream()
+                .filter(prov -> (prov.getNombre().toLowerCase().contains(searchTerm.toLowerCase())
+                        || prov.getId().toLowerCase().contains(searchTerm.toLowerCase())))
+                .collect(Collectors.toList());
     }
 }

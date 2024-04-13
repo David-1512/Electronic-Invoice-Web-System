@@ -24,6 +24,9 @@ public class ProveedorEntity {
     @Basic
     @Column(name = "contrasena")
     private String contrasena;
+    @Basic
+    @Column(name = "estado")
+    private char estado;
     @OneToMany(mappedBy = "proveedorByIdProveedor")
     private Collection<FacturasEntity> facturasById;
     @OneToMany(mappedBy = "proveedorByIdProveedor")
@@ -70,6 +73,26 @@ public class ProveedorEntity {
 
     public void setContrasena(String contrasena) {
         this.contrasena = contrasena;
+    }
+
+    public char getEstado() {
+        return estado;
+    }
+    public String getSEstado() {
+        switch(estado){
+            case 'E':
+                return "Espera";
+            case 'A':
+                return "Activo";
+            case 'I':
+                return "Inactivo";
+            default:
+                return "Desconocido";
+        }
+    }
+
+    public void setEstado(char estado) {
+        this.estado = estado;
     }
 
     @Override

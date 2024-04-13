@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Solicitudes nuevas </title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+</head>
+<body>
+
+<header th:replace="presentation/plantilla/template :: header"></header>
+
+<h1>Solicitudes de Nuevos Proveedores</h1>
+<div class="search-container">
+    <form action="/administracion/solicitudes/buscar" method="post" class="search-form">
+        <input type="text" name="prov" id="prov" placeholder="Buscar Proveedor">
+        <button type="submit" class="search-button">Buscar</button>
+    </form>
+</div>
+<div>
+    <table class="table">
+        <thead class="thead-light">
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Correo</th>
+            <th scope="col">Telefono</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="p: ${provNuevos}">
+            <th scope="row"><span th:text="${p.getId()}"></span></th>
+            <td><span th:text="${p.getNombre()}"></span></td>
+            <td><span th:text="${p.getCorreo()}"></span></td>
+            <td><span th:text="${p.getTelefono()}"></span></td>
+            <td>
+                <a th:href="@{/administracion/solicitudes/validacion(id=${p.getId()},accion='aceptar')}">
+                    <img src="/images/aceptar.png" alt="aceptar" width="20" height="20">
+                </a>
+            </td>
+            <td>
+                <a th:href="@{/administracion/solicitudes/validacion(id=${p.getId()},accion='denegar')}">
+                    <img src="/images/denegar.png" alt="denegar" width="20" height="20">
+                </a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<footer th:replace="presentation/plantilla/template :: footer"></footer>
+</body>
+</html>

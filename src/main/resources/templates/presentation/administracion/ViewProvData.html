@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${proveedor.getNombre()}"></title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+</head>
+<body>
+    <header th:replace="presentation/plantilla/template :: header"></header>
+
+    <h1 th:text="${proveedor.getNombre()}"></h1>
+    <p><b>Correo: </b><span th:text="${proveedor.getCorreo()}"></span></p>
+    <p><b>Telefono: </b><span th:text="${proveedor.getTelefono()}"></span></p>
+    <p><b>NIF: </b><span th:text="${proveedor.getHaciendaByNif().getNif()}"></span></p>
+    <p><b>Productos: </b><span th:text="${proveedor.getProductosById().size()}"></span></p>
+    <p><b>Facturas: </b><span th:text="${proveedor.getFacturasById().size()}"></span>
+    <br>
+    <p><b>Estado: </b><span th:text="${proveedor.getSEstado()}"></span></p>
+
+    <div th:if="${#strings.equalsIgnoreCase(proveedor.getEstado(), 'A')}">
+        <a th:href="@{/administracion/manejo-prov(id=${proveedor.getId()},accion='desactivar')}"><button type="button" class="btn btn-primary">Desactivar</button></a>
+    </div>
+
+    <div th:if="${#strings.equalsIgnoreCase(proveedor.getEstado(), 'I')}">
+        <a th:href="@{/administracion/manejo-prov(id=${proveedor.getId()},accion='activar')}"><button type="button" class="btn btn-secondary">Activar</button></a>
+    </div>
+
+    <footer th:replace="presentation/plantilla/template :: footer"></footer>
+</body>
+</html>

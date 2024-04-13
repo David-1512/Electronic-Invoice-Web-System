@@ -16,7 +16,7 @@ public class ProductoEntity {
     private String nombre;
     @Basic
     @Column(name = "precio")
-    private int precio;
+    private double precio;
     @ManyToOne
     @JoinColumn(name = "id_proveedor", referencedColumnName = "id", nullable = false)
     private ProveedorEntity proveedorByIdProveedor;
@@ -26,7 +26,7 @@ public class ProductoEntity {
     public ProductoEntity() {
     }
 
-    public ProductoEntity(String cod,  String nom, int precio, ProveedorEntity proveedorID) {
+    public ProductoEntity(String cod,  String nom, double precio, ProveedorEntity proveedorID) {
         this.cod = cod;
         this.precio = precio;
         this.nombre = nom;
@@ -49,11 +49,11 @@ public class ProductoEntity {
         this.nombre = nombre;
     }
 
-    public int getPrecio() {
+    public double getPrecio() {
         return precio;
     }
 
-    public void setPrecio(int precio) {
+    public void setPrecio(double precio) {
         this.precio = precio;
     }
 
