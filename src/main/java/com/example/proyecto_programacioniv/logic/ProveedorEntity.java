@@ -31,6 +31,8 @@ public class ProveedorEntity {
     private Collection<FacturasEntity> facturasById;
     @OneToMany(mappedBy = "proveedorByIdProveedor")
     private Collection<ProductoEntity> productosById;
+    @OneToMany(mappedBy = "proveedorByIdProveedor")
+    private Collection<ClienteEntity> clientesById;
     @ManyToOne
     @JoinColumn(name = "nif", referencedColumnName = "nif", nullable = false)
     private HaciendaEntity haciendaByNif;
@@ -132,5 +134,13 @@ public class ProveedorEntity {
 
     public void setHaciendaByNif(HaciendaEntity haciendaByNif) {
         this.haciendaByNif = haciendaByNif;
+    }
+
+    public Collection<ClienteEntity> getClientesById() {
+        return clientesById;
+    }
+
+    public void setClientesById(Collection<ClienteEntity> clientesById) {
+        this.clientesById = clientesById;
     }
 }

@@ -2,28 +2,101 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Seguros Spring</title>
+    <title>Clientes</title>
     <style>
         table { border-collapse: collapse; width: 100%;}
         th, td {padding: 8px; text-align: left; border-bottom: 1px solid gray;}
         tr:hover {background-color:#f5f5f5;}
     </style>
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/viewClientes.css}">
 </head>
 <body>
     <header th:replace="presentation/plantilla/template :: header"></header>
 
-  <div class = "centered">
-      <table style = "border: 1px solid blue">
-          <tr><th>Id</th>   <th>Nombre</th> <th>...</th></tr>
-          <tr th:each = "c:${clientes}">
-              <td th:text="${c.getId()}"></td>
-              <td th:text="${c.getNombre()}"></td>
-              <td><a th:href="@{presentation/polizas/show(identificacion = ${c.getId()})}">...</a></td>
+    <h2>Clientes</h2>
 
-          </tr>
-      </table>
-  </div>
+    <div class="container-box">
+        <div class="search-container">
+            <form action="/clientes/buscar" method="post" class="search-form" >
+                <input type="text" name="busq" id="busq" placeholder="Buscar Cliente" >
+                <input type="hidden" name="idProv" th:value="${proveedor.get().getId()}">
+                <button type="submit" class="search-button">Buscar</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="juntos">
+
+            <div class="izquierda">
+            <div style="overflow-y: auto; max-height: 300px;">
+                <table class="table table-hover">
+                        <thead class="thead-light">
+                        <tr class="fixed-header">
+                            <th scope="col"> </th> <th scope="col">Identificacion</th> <th scope="col">Nombre</th> <th scope="col">Correo</th> <th scope="col">Teléfono</th> <th scope="col"> </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="c: ${clientes}">
+                            <td>
+                                <a th:href="@{/clientes/eliminarCliente(idClien=${c.getId()},idProv=${proveedor.get().getId()})}">
+                                    <img src="/images/denegar.png" alt="boton-x" width="20" height="20">
+                                </a>
+                            </td>
+                            <td> <span th:text="${c.getId()}"></span> </td>
+                            <td> <span th:text="${c.getNombre()}"></span> </td>
+                            <td> <span th:text="${c.getCorreo()}"></span> </td>
+                            <td> <span th:text="${c.getTelefono()}"></span> </td>
+
+                            <td>
+                                <a th:href="@{/clientes/seleccionar(idClien=${c.getId()},idProv=${proveedor.get().getId()})}">
+                                    <img src="/images/editar.png" alt="edicion" width="20" height="20">
+                                </a>
+                            </td>
+                        </tr>
+                        </tbody>
+                </table>
+            </div>
+            </div>
+
+        <div class="derecha">
+            <h4>Formulario</h4>
+            <div class="containerEdit">
+                <form th:action="@{/clientes/agregar}" method="post">
+                    <div class="form-row">
+                        <div class="form-group col-md-12">
+                            <label for="identificacion">Identificacion:</label>
+                            <input type="text" class="form-control" id="identificacion" name="identificacion"
+                                   th:value="${cliente != null ? cliente.getId() : ''}"
+                                   th:disabled="${cliente != null}" required>
+                            <input type="hidden" name="identificacion" th:if="${cliente != null}" th:value="${cliente.getId()}">
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label for="nombre">Nombre:</label>
+                            <input type="text" class="form-control" id="nombre" name="nombre"
+                                   th:value="${cliente != null ? cliente.getNombre(): ''}" required>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label for="correo">Correo:</label>
+                            <input type="email" class="form-control" id="correo" name="correo"
+                                   th:value="${cliente != null ? cliente.getCorreo(): ''}" required>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label for="telefono">Telefono:</label>
+                            <input type="number" class="form-control" id="telefono" name="telefono"
+                                   th:value="${cliente != null ? cliente.getTelefono() : ''}" required min="18">
+                        </div>
+                    </div>
+                    <br>
+                    <input type="hidden" name="esCliente" th:value="${cliente != null}">
+                    <input type="hidden" name="idProv" th:value="${proveedor.get().getId()}">
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                    <a th:href="@{/clientes(idProv=${86952})}">Limpiar</a>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <footer th:replace="presentation/plantilla/template :: footer"></footer>
 </body>
 </html>
