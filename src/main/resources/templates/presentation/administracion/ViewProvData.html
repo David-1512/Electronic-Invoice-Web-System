@@ -6,6 +6,8 @@
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
 </head>
 <body>
+    <header th:replace="presentation/plantilla/template :: header"></header>
+
     <h1 th:text="${proveedor.getNombre()}"></h1>
     <p><b>Correo: </b><span th:text="${proveedor.getCorreo()}"></span></p>
     <p><b>Telefono: </b><span th:text="${proveedor.getTelefono()}"></span></p>
@@ -23,5 +25,6 @@
         <a th:href="@{/administracion/manejo-prov(id=${proveedor.getId()},accion='activar')}"><button type="button" class="btn btn-secondary">Activar</button></a>
     </div>
 
+    <footer th:replace="presentation/plantilla/template :: footer"></footer>
 </body>
 </html>

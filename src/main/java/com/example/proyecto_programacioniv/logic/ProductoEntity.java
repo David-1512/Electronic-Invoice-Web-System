@@ -8,21 +8,30 @@ import java.util.Objects;
 @Entity
 @Table(name = "producto", schema = "proyecto_prograiv", catalog = "")
 public class ProductoEntity {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @Column(name = "cod")
+    @Column(name = "cod", nullable = false)
     private String cod;
     @Basic
     @Column(name = "nombre")
     private String nombre;
     @Basic
     @Column(name = "precio")
-    private int precio;
+    private double precio;
     @ManyToOne
     @JoinColumn(name = "id_proveedor", referencedColumnName = "id", nullable = false)
     private ProveedorEntity proveedorByIdProveedor;
     @OneToMany(mappedBy = "productoByCodProducto")
     private Collection<LineaServicioEntity> lineaServiciosByCod;
+
+    public ProductoEntity() {
+    }
+
+    public ProductoEntity(String cod,  String nom, double precio, ProveedorEntity proveedorID) {
+        this.cod = cod;
+        this.precio = precio;
+        this.nombre = nom;
+        this.proveedorByIdProveedor= proveedorID;
+    }
 
     public String getCod() {
         return cod;
@@ -40,11 +49,11 @@ public class ProductoEntity {
         this.nombre = nombre;
     }
 
-    public int getPrecio() {
+    public double getPrecio() {
         return precio;
     }
 
-    public void setPrecio(int precio) {
+    public void setPrecio(double precio) {
         this.precio = precio;
     }
 

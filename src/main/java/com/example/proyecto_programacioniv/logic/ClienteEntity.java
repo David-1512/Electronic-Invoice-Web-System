@@ -6,11 +6,12 @@ import java.util.Collection;
 import java.util.Objects;
 
 @Entity
-@Table(name = "cliente", schema = "proyecto_prograiv", catalog = "")
-public class ClienteEntity {
+@Table(name = "cliente", schema = "proyecto_prograiv", catalog = "") //tabla a la que hace referencia
+public class ClienteEntity {//implementar serializable luego
+
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Id
-    @Column(name = "id")
+    @Id//llave primaria
+    @Column(name = "id")// se pone cuando no se llama igual en la base de datos
     private String id;
     @Basic
     @Column(name = "nombre")

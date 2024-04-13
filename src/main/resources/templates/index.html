@@ -7,50 +7,15 @@
 </head>
 
 <body>
-<!--barra de Navegacion-->
-<header th:fragment="header">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <!--barra de Navegacion-->
+    <header th:replace="presentation/plantilla/template :: header"></header>
 
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">
-                <img th:src="@{/images/log.png}" alt="LogoEmpresa" height="40">
-                <strong>Facturación S.A</strong>
-            </a>
-            <!--Enlaces-->
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link" aria-current="page"  th:href = "@{/index}">Inicio</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" th:href = "@{/presentation/clientes/show}">Clientes</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link"  th:href = "@{/administracion}">Proveedores</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link"  th:href = "@{/administracion/solicitudes}">Solicitudes</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link"  th:href = "@{/presentation/facturacion/searchProveedor}">Facturación</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-</header>
-
-<!--Contenido-->
-<div class="container">
+    <!--Contenido-->
     <p>Página de inicio aquí se puede escribir lo que se quiera</p>
-</div>
 
-<!--Pie de página-->
-<footer th:fragment="footer" class = "bg-dark text-center text-white fixed-bottom" >
-    <div class="container">
-        <p>Proyecto Programación IV &copy;  - 2023</p>
-    </div>
-</footer>
+    <footer th:replace="presentation/plantilla/template :: footer"></footer>
+
+
 
 </body>
 </html>
