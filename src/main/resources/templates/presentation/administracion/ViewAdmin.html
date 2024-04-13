@@ -6,6 +6,7 @@
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
 </head>
 <body>
+<header th:replace="presentation/plantilla/template :: header"></header>
 
 <h1>Proveedores Registrados</h1>
 
@@ -44,6 +45,8 @@
         </tbody>
     </table>
 </div>
+
+<footer th:replace="presentation/plantilla/template :: footer"></footer>
 
 </body>
 </html>

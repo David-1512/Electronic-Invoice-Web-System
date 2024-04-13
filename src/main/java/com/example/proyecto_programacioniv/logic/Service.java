@@ -4,9 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -66,17 +63,19 @@ public class Service {
         return null;
     }
 
-    public void agregarProducto(String cod, String nom, int precio, String proveedorID) {
-        if (productoRepository.findById(cod).isPresent()) {
-            ProductoEntity producto = productoRepository.findById(cod).get();
-            producto.setPrecio(precio);
-            producto.setNombre(nom);
-            productoRepository.save(producto);
+    public void agregarProducto(String cod, String nom, double precio, String proveedorID, boolean esProducto) {
+        if (productoRepository.findById(cod).isPresent() ) {
+            if(esProducto) {
+                ProductoEntity producto = productoRepository.findById(cod).get();
+                producto.setPrecio(precio);
+                producto.setNombre(nom);
+                productoRepository.save(producto);
+            }
+            else return;// tal vez poner un mensajito que ya el codigo está siendo utilizado
         }
         else{
             ProveedorEntity prov= proveedorRepository.findById(proveedorID).get();
             ProductoEntity pE = new ProductoEntity(cod,nom,precio,prov);
-
             productoRepository.save(pE);
         }
     }
