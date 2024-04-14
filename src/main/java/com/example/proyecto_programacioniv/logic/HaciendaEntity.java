@@ -8,7 +8,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "hacienda", schema = "proyecto_prograiv", catalog = "")
 public class HaciendaEntity {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     @Id
     @Column(name = "nif")
     private String nif;

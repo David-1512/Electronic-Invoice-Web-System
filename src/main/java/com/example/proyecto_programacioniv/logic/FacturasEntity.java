@@ -9,7 +9,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "facturas", schema = "proyecto_prograiv", catalog = "")
 public class FacturasEntity {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     @Id
     @Column(name = "num_factura")
     private String numFactura;

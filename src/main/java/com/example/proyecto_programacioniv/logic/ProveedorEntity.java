@@ -8,7 +8,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "proveedor", schema = "proyecto_prograiv", catalog = "")
 public class ProveedorEntity {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     @Id
     @Column(name = "id")
     private String id;
@@ -24,6 +24,11 @@ public class ProveedorEntity {
     @Basic
     @Column(name = "contrasena")
     private String contrasena;
+    @Basic
+    @Column(name = "estado")
+    private String estado;
+    @OneToMany(mappedBy = "proveedorByIdProveedor")
+    private Collection<ClienteEntity> clientesById;
     @OneToMany(mappedBy = "proveedorByIdProveedor")
     private Collection<FacturasEntity> facturasById;
     @OneToMany(mappedBy = "proveedorByIdProveedor")
@@ -72,17 +77,33 @@ public class ProveedorEntity {
         this.contrasena = contrasena;
     }
 
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        ProveedorEntity that = (ProveedorEntity) o;
-        return Objects.equals(id, that.id) && Objects.equals(nombre, that.nombre) && Objects.equals(correo, that.correo) && Objects.equals(telefono, that.telefono) && Objects.equals(contrasena, that.contrasena);
+        ProveedorEntity proveedor = (ProveedorEntity) o;
+        return Objects.equals(id, proveedor.id) && Objects.equals(nombre, proveedor.nombre) && Objects.equals(correo, proveedor.correo) && Objects.equals(telefono, proveedor.telefono) && Objects.equals(contrasena, proveedor.contrasena) && Objects.equals(estado, proveedor.estado);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, nombre, correo, telefono, contrasena);
+        return Objects.hash(id, nombre, correo, telefono, contrasena, estado);
+    }
+
+    public Collection<ClienteEntity> getClientesById() {
+        return clientesById;
+    }
+
+    public void setClientesById(Collection<ClienteEntity> clientesById) {
+        this.clientesById = clientesById;
     }
 
     public Collection<FacturasEntity> getFacturasById() {

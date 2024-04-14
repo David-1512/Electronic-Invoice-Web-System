@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.Optional;
 
 @org.springframework.stereotype.Controller("facturas")
-@RequestMapping("/presentation/facturacion")
+@RequestMapping("/presentation/facturacion") //Aqui deberia entrar con el idProveedor
 public class facturacionController {
 
     @Autowired
@@ -107,5 +107,47 @@ public class facturacionController {
         model.addAttribute("totalFactura",modelfacturacion.getTotalFactura());
         return "presentation/facturacion/View";
     }
+
+    @GetMapping("/verClientes")
+    public String verClientes(Model model,
+                              @RequestParam("nomProveedorCliente")String nomProveedor){
+        model.addAttribute("nombreProveedor", nomProveedor);
+        model.addAttribute("clientes",service.clienteFindAll());
+        return "presentation/facturacion/ViewClientes";
+    }
+
+    @GetMapping("/selectCliente/{idCliente}")
+    public String addCliente(Model model,@PathVariable String idCliente,
+                             @RequestParam("nomProveedorCliente")String nomProveedor){
+        Optional<ClienteEntity> clienteOptional = service.clienteFindById(idCliente);
+            ClienteEntity cliente = clienteOptional.get();
+            model.addAttribute("nombreCliente", cliente.getNombre());
+            model.addAttribute("nombreProveedor", nomProveedor);
+            return "presentation/facturacion/View";
+    }
+
+    @GetMapping("/verProductos")
+    public String verProductos(Model model,
+                               @RequestParam("nomProveedorProducto") String nomProveedor,
+                               @RequestParam("nomClienteProducto") String nomCliente){
+        model.addAttribute("nombreProveedor", nomProveedor);
+        model.addAttribute("nombreCliente", nomCliente);
+        model.addAttribute("productos",service.productoFindAll());
+        return "presentation/facturacion/ViewProductos";
+    }
+
+    @GetMapping("/selectProducto/{codProducto}")
+    public String addProducto(Model model,@PathVariable String codProducto,
+                             @RequestParam("nomProveedorCliente")String nomProveedor,
+                              @RequestParam("nomClienteProducto") String nomCliente ){
+        model.addAttribute("codigoProducto", codProducto);
+        model.addAttribute("nombreProveedor", nomProveedor);
+        model.addAttribute("nombreCliente", nomCliente);
+        model.addAttribute("lineasServicios", modelfacturacion.findAll());
+        model.addAttribute("totalFactura",modelfacturacion.getTotalFactura());
+        return "presentation/facturacion/View";
+    }
+
+
 }
 

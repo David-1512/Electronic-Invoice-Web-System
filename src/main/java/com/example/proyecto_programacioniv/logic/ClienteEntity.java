@@ -4,11 +4,10 @@ import jakarta.persistence.*;
 
 import java.util.Collection;
 import java.util.Objects;
-
 @Entity
 @Table(name = "cliente", schema = "proyecto_prograiv", catalog = "")
 public class ClienteEntity {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     @Id
     @Column(name = "id")
     private String id;
@@ -21,6 +20,9 @@ public class ClienteEntity {
     @Basic
     @Column(name = "telefono")
     private String telefono;
+    @ManyToOne
+    @JoinColumn(name = "id_proveedor", referencedColumnName = "id")
+    private ProveedorEntity proveedorByIdProveedor;
     @OneToMany(mappedBy = "clienteByIdCliente")
     private Collection<FacturasEntity> facturasById;
 
@@ -67,6 +69,14 @@ public class ClienteEntity {
     @Override
     public int hashCode() {
         return Objects.hash(id, nombre, correo, telefono);
+    }
+
+    public ProveedorEntity getProveedorByIdProveedor() {
+        return proveedorByIdProveedor;
+    }
+
+    public void setProveedorByIdProveedor(ProveedorEntity proveedorByIdProveedor) {
+        this.proveedorByIdProveedor = proveedorByIdProveedor;
     }
 
     public Collection<FacturasEntity> getFacturasById() {

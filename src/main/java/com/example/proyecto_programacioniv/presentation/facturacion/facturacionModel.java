@@ -42,11 +42,9 @@ public class facturacionModel {
     public void aumentarCantidad(int cod){
         LineaServicioEntity result = listLinea.stream()
                 .filter(i->i.getCod() == cod).findFirst().orElse(null);
-        if(result.getCantidad() != 1) {
             result.setCantidad(result.getCantidad() + 1);
             result.setSubtotal(subtotal(result));
             totalFactura += result.getProductoByCodProducto().getPrecio();
-        }
     }
 
     public void eliminarProducto(int cod){
@@ -58,8 +56,8 @@ public class facturacionModel {
 
     }
 
-    private int subtotal(LineaServicioEntity linea){  //Cambiar a double
-        int subtotal = linea.getCantidad() * linea.getProductoByCodProducto().getPrecio();
+    private double subtotal(LineaServicioEntity linea){  //Cambiar a double
+        double subtotal = linea.getCantidad() * linea.getProductoByCodProducto().getPrecio();
         return subtotal;
     }
 
