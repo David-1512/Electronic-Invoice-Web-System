@@ -66,11 +66,13 @@ public class facturacionController {
                                @RequestParam("idClienteProducto") String idCliente,
                                Model model){
         ProveedorEntity proveedor = service.returnProveedor(idProveedor);
-        ClienteEntity cliente = service.returnCliente(idCliente);
-        model.addAttribute("nombreCliente", cliente.getNombre());
+        if(idCliente !=null){
+            ClienteEntity cliente = service.returnCliente(idCliente);
+            model.addAttribute("nombreCliente", cliente.getNombre());
+            model.addAttribute("idCliente",idCliente);
+        }
         model.addAttribute("nombreProveedor",proveedor.getNombre());
         model.addAttribute("idProveedor",idProveedor);
-        model.addAttribute("idCliente",idCliente);
         model.addAttribute("lineasServicios", modelfacturacion.findAll());
         model.addAttribute("totalFactura",modelfacturacion.getTotalFactura());
 

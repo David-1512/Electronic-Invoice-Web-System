@@ -23,7 +23,7 @@ public class PDF {
         PdfContentByte cb = writer.getDirectContent();
 
         Font font = FontFactory.getFont(FontFactory.HELVETICA, 12, Font.BOLDITALIC, new BaseColor(0, 0, 0));
-// Título de la factura
+
         drawText(cb, "FACTURACION S.A", 50, 750, font);
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
