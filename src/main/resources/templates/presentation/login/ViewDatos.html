@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Datos del proveedor</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/viewClientes.css}">
 </head>
 <body>
 
@@ -17,6 +19,7 @@
                     <input type="text" class="form-control" id="id" name="id"
                            th:value="${proveedor != null ? proveedor.getId() : ''}"
                            th:disabled="${proveedor != null}" required>
+                    <input type="hidden" name="id" th:if="${proveedor != null}" th:value="${proveedor.getId()}">
                 </div>
                 <div class="form-group col-md-4">
                     <label for="nombre">Nombre:</label>
@@ -31,22 +34,22 @@
                 <div class="form-group col-md-4">
                     <label for="telefono">Telefono:</label>
                     <input type="text" class="form-control" id="telefono" name="telefono"
-                           th:value="${proveedor != null ? proveedor.getCorreo() : ''}" required>
+                           th:value="${proveedor != null ? proveedor.getTelefono() : ''}" required>
                 </div>
                 <div class="form-group col-md-4">
                     <label for="nif">Nif:</label>
                     <input type="text" class="form-control" id="nif" name="nif"
                            th:value="${proveedor != null ? proveedor.getHaciendaByNif().getNif() : ''}"
                            th:disabled="${proveedor != null}" required>
+                    <input type="hidden" name="nif" th:if="${proveedor != null}" th:value="${proveedor.getHaciendaByNif().getNif()}">
                 </div>
                 <div class="form-group col-md-4">
-                    <label for="actividad">Nif:</label>
+                    <label for="actividad">Actividad económica:</label>
                     <input type="text" class="form-control" id="actividad" name="actividad"
                            th:value="${proveedor != null ? proveedor.getHaciendaByNif().getActEconomica() : ''}" required>
                 </div>
             </div>
             <button type="submit" class="btn btn-primary">Guardar</button>
-            <!--            <a th:href="@{/productos(idProv=${86952})}">Limpiar</a>-->
         </form>
     </div>
 </div>

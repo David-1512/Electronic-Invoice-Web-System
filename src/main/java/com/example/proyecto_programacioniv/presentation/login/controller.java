@@ -33,7 +33,7 @@ public class controller {
     @PostMapping("/presentation/login")
     public String validate(@ModelAttribute ProveedorEntity proveedor,
                            Model model,
-                           @RequestParam("tipo") String tipo){
+                           @RequestParam("tipo") String tipo, HttpSession session){
         if(tipo.equals("proveedor")) {
             Optional<ProveedorEntity> p = service.proveedorFindByIdandContrasena(proveedor.getId(), proveedor.getContrasena());
 
@@ -42,10 +42,13 @@ public class controller {
 
                 if (p.get().getEstado() == 'A') {
                     httpSession.setAttribute("idProveedor", p.get().getId());
+                    session.setAttribute("proveedor", service.proveedorFindById(p.get().getId()).get());
                     return "presentation/home/home";
 
                 } else if (p.get().getEstado() == 'D') {
+                    model.addAttribute("proveedor", service.proveedorFindById(p.get().getId()).get());
                     //redireccionar a pagina de completar datos
+                    session.setAttribute("proveedor", service.proveedorFindById(p.get().getId()).get());
                     return "presentation/login/ViewDatos";
 
                 } else if (p.get().getEstado() == 'I') {
@@ -72,6 +75,7 @@ public class controller {
             else{
                 model.addAttribute("administrador", admin);
                 model.addAttribute("proveedor", proveedor);
+
                 return "presentation/home/home";
             }
         }

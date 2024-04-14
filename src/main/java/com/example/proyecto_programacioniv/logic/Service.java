@@ -140,6 +140,11 @@ public class Service {
 
     public void aceptarProveedor(String id) {
         ProveedorEntity proveedor = proveedorRepository.findById(id).get();
+        proveedor.setEstado('D');
+        proveedorRepository.save(proveedor);
+    }
+    public void activarProveedor(String id) {
+        ProveedorEntity proveedor = proveedorRepository.findById(id).get();
         proveedor.setEstado('A');
         proveedorRepository.save(proveedor);
     }
@@ -236,5 +241,25 @@ public class Service {
             }
         }
         return null;
+    }
+
+    public void proveedorUpdate(String id, String nombre, String correo, String telefono, String nif, String actividad)throws Exception {
+        try{
+            ProveedorEntity p = proveedorRepository.findById(id).get();
+            p.setNombre(nombre);
+            p.setCorreo(correo);
+            p.setTelefono(telefono);
+            p.setEstado('A');
+
+            HaciendaEntity hE = findHaciendaByNIF(nif);
+            hE.setActEconomica(actividad);
+            p.setHaciendaByNif(hE);
+            proveedorRepository.save(p);
+        }catch (Exception e){
+            ProveedorEntity p = proveedorRepository.findById(id).get();
+            p.setEstado('D');
+            proveedorRepository.save(p);
+            throw new Exception("Error, el correo digitado ya existe ");
+        }
     }
 }

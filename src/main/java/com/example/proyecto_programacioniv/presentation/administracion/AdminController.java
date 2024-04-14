@@ -49,7 +49,7 @@ public class AdminController {
             service.desactivarProveedor(id);
         }
         else if(accion.equals("activar")){
-            service.aceptarProveedor(id);
+            service.activarProveedor(id);
         }
         model.addAttribute("proveedor",service.proveedorFindById(id).get());
 

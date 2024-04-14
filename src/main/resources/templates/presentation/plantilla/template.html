@@ -34,32 +34,32 @@
             </div>
 
             <div th:if="${proveedor != null}">
-            <div class="collapse navbar-collapse">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link" th:href = "@{/}">Inicio</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" th:href = "@{/clientes(idProv=${86952})}">Clientes</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link"  th:href = "@{/presentation/facturacion/searchProveedor}">Facturación</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link"  th:href = "@{/productos(idProv=${86952})}">Productos</a>
-                    </li>
-                    <li class="nav-item">
-                        <select onchange="location = this.value;">
-                            <option value="">Idiomas</option>
-                            <option value="?lang=es">Español</option>
-                            <option value="?lang=en">Inglés</option>
-                            <option value="?lang=pt">Francés</option>
-                        </select>
-                        <!--                        productos ver si se manda id proveedor-->
-                    </li>
-                </ul>
+                <div class="collapse navbar-collapse">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link" th:href = "@{/}">Inicio</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href = "@{/clientes(idProv=${session.proveedor.getId()})}">Clientes</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link"  th:href = "@{/presentation/facturacion/searchProveedor}">Facturación</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link"  th:href = "@{/productos(idProv=${session.proveedor.getId()})}">Productos</a>
+                        </li>
+                        <li class="nav-item">
+                            <select onchange="location = this.value;">
+                                <option value="">Idiomas</option>
+                                <option value="?lang=es">Español</option>
+                                <option value="?lang=en">Inglés</option>
+                                <option value="?lang=pt">Francés</option>
+                            </select>
+                            <!--                        productos ver si se manda id proveedor-->
+                        </li>
+                    </ul>
+                </div>
             </div>
-         </div>
         </div>
     </nav>
 </header>
