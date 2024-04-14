@@ -107,7 +107,7 @@ public class Service {
         return null;
     }
 
-    public void agregarProducto(String cod, String nom, double precio, String proveedorID, boolean esProducto) {
+    public void agregarProducto(String cod, String nom, double precio, String proveedorID, boolean esProducto) throws Exception {
         if (productoRepository.findById(cod).isPresent() ) {
             if(esProducto) {
                 ProductoEntity producto = productoRepository.findById(cod).get();
@@ -115,13 +115,15 @@ public class Service {
                 producto.setNombre(nom);
                 productoRepository.save(producto);
             }
-            else return;// tal vez poner un mensajito que ya el codigo está siendo utilizado
+            else throw new Exception("Codigo ya existe");
         }
         else{
             ProveedorEntity prov= proveedorRepository.findById(proveedorID).get();
             ProductoEntity pE = new ProductoEntity(cod,nom,precio,prov);
             productoRepository.save(pE);
+            throw new Exception("Se agregó producto");
         }
+        throw new Exception("no se agregó producto");
     }
     //-----------------------------------------------------------------------------------------------------------
     public Iterable<ProveedorEntity> proveedorFindAll(){

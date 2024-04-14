@@ -52,7 +52,11 @@ public class ProductoController {
                                   @RequestParam("idProv") String proveedorID,
                                   @RequestParam("esProducto") boolean esProducto,
                                   Model model){
-        service.agregarProducto(cod,nom,precio,proveedorID,esProducto);
+        try {
+            service.agregarProducto(cod, nom, precio, proveedorID, esProducto);
+        }catch(Exception e){
+            model.addAttribute("error",e.getMessage());
+        }
         model.addAttribute("listaProductos",service.mostrarProductosProveedor(proveedorID));
         model.addAttribute("proveedor", service.proveedorFindById(proveedorID));
 

@@ -42,7 +42,7 @@ h2 {
 .juntos {
     display: flex;
     justify-content: space-between;
-    gap: 60px;
+    gap: 40px;
 }
 
 .izquierda {

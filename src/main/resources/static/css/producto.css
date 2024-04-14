@@ -69,6 +69,11 @@ h2 {
 body {
     overflow-y: auto;
 }
-
+.error-message {
+    color: white;
+    background-color: rgba(166, 222, 255, 0.73);
+    padding: 10px;
+    border-radius: 5px;
+}
 
 

@@ -14,7 +14,7 @@
     <div class="inicio-Sesion">
     <form class="login-form" method="post" th:action="@{/presentation/login}" enctype="multipart/form-data" th:object="${proveedor}">
         <label>Tipo</label>
-        <select id="tipo" name="tipo">
+        <select id="tipo" name="tipo" class="tipo">
             <option value="administrador">Administrador</option>
             <option value="proveedor">Proveedor</option>
         </select>
