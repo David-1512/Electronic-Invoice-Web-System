@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="es" xmlns:th="http://www.thymeleaf.org/" xmlns:fmt="http://www.w3.org/1999/XSL/Transform">
 <head>
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
     <meta charset="UTF-8">
@@ -35,6 +35,15 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link"  th:href = "@{/productos(idProv=${86952})}">Productos</a>
+                        <!--                        productos ver si se manda id proveedor-->
+                    </li>
+                    <li class="nav-item">
+                        <select onchange="location = this.value;">
+                            <option value="">Idiomas</option>
+                            <option value="?lang=es">Español</option>
+                            <option value="?lang=en">Inglés</option>
+                            <option value="?lang=pt">Francés</option>
+                        </select>
                         <!--                        productos ver si se manda id proveedor-->
                     </li>
                 </ul>

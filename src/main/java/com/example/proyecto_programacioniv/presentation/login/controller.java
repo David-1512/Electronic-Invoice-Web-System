@@ -38,7 +38,7 @@ public class controller {
                 return "redirect:/";
             } else if (p.get().getEstado() == 'D') {
                 //redireccionar a pagina de completar datos
-                return "presentation/login/View";
+                return "presentation/proveedor/ViewDatos";
             }
         }
         if (p.isEmpty()) {
