@@ -29,6 +29,9 @@
                         <li class="nav-item">
                             <a class="nav-link"  th:href = "@{/administracion/solicitudes}">Solicitudes</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link"  th:href = "@{/logout}">Logout</a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -49,14 +52,9 @@
                             <a class="nav-link"  th:href = "@{/productos(idProv=${session.proveedor.getId()})}">Productos</a>
                         </li>
                         <li class="nav-item">
-                            <select onchange="location = this.value;">
-                                <option value="">Idiomas</option>
-                                <option value="?lang=es">Español</option>
-                                <option value="?lang=en">Inglés</option>
-                                <option value="?lang=pt">Francés</option>
-                            </select>
-                            <!--                        productos ver si se manda id proveedor-->
+                            <a class="nav-link"  th:href = "@{/logout}">Logout</a>
                         </li>
+
                     </ul>
                 </div>
             </div>
@@ -68,6 +66,15 @@
 <footer th:fragment="footer" class = "bg-dark text-center text-white fixed-bottom" >
     <div class="container">
         <p>Proyecto Programación IV &copy;  - 2023</p>
+    </div>
+    <div class="nav-item">
+        <select onchange="location = this.value;">
+            <option value="">Idiomas</option>
+            <option value="?lang=es">Español</option>
+            <option value="?lang=en">Inglés</option>
+            <option value="?lang=pt">Francés</option>
+        </select>
+        <!--                        productos ver si se manda id proveedor-->
     </div>
 </footer>
 

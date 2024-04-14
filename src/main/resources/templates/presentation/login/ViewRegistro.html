@@ -42,6 +42,7 @@
             <input type="text" name="nif" required >
         </label>
     </div>
+    <p th:if="${error}" th:text="${error}" class="error-message"></p>
     <div>
         <button type="submit" >Registrarse</button>
     </div>

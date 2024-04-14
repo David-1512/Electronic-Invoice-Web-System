@@ -56,3 +56,9 @@ button[type="submit"]:hover {
     justify-content: center;
     align-items: center;
 }
+.error-message {
+    color: white;
+    background-color: rgb(255, 0, 8); /* Rojo */
+    padding: 10px;
+    border-radius: 5px;
+}

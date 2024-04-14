@@ -37,7 +37,26 @@ public class Service {
         HaciendaEntity hE = new HaciendaEntity(nif, "");
         haciendaRepository.save(hE);
     }
-    public void agregarProveedor(ProveedorEntity p) throws Exception {
+    public void agregarProveedor(ProveedorEntity p, String nif) throws Exception {
+        for(AdministradorEntity a: administradorRepository.getListAdministrado()){
+            if(Objects.equals(a.getId(), p.getId())){
+                throw new Exception("Ya existe un administrador con ese ID");
+            }
+        }
+        if(proveedorRepository.findById(p.getId()).isPresent()){
+            throw new Exception("Ya existe un proveedor con ese ID");
+        }
+        for(ProveedorEntity prov: proveedorRepository.findAll()){
+            if(Objects.equals(prov.getCorreo(), p.getCorreo())){
+                throw new Exception("Ya existe un proveedor con ese correo");
+            }
+            if(Objects.equals(prov.getHaciendaByNif().getNif(), nif)){
+                throw new Exception("Ya existe un proveedor con ese NIF");
+            }
+        }
+        agregarHacienda(nif);
+        HaciendaEntity hE = findHaciendaByNIF(nif);
+        p.setHaciendaByNif(hE);
         proveedorRepository.save(p);
         p.getHaciendaByNif().getProveedorsByNif().add(p);
         haciendaRepository.save(p.getHaciendaByNif());
@@ -207,6 +226,12 @@ public class Service {
     }
 
     public void agregarCliente(String clienteID, String nombre, String correo, String telefono, boolean esCliente, String proveedorID) throws Exception {
+        for(ClienteEntity clien: clienteRepository.findAll()){
+            if(Objects.equals(clien.getCorreo().toLowerCase(), correo.toLowerCase())){
+                throw new Exception("Ya el correo se encuentra registrado");
+            }
+        }
+
         if (clienteRepository.findById(clienteID).isPresent()) {
             if(esCliente) {
                 ClienteEntity cliente = clienteRepository.findById(clienteID).get();
@@ -216,17 +241,13 @@ public class Service {
                 clienteRepository.save(cliente);
                 throw new Exception("Se logró editar");
             }
-            else throw new Exception("No se logró editar");
+            else throw new Exception("Ya el ID se encuentra registrado");
         }
         else{
-            try {
-                ProveedorEntity prov = proveedorRepository.findById(proveedorID).get();
-                ClienteEntity pE = new ClienteEntity(clienteID, nombre, correo, telefono, prov);
-                clienteRepository.save(pE);
-                throw new Exception("Se guardo nuevo cliente con ID" + clienteID);
-            }catch(Exception e) {
-                throw new Exception("No se logró guardar cliente");
-            }
+            ProveedorEntity prov = proveedorRepository.findById(proveedorID).get();
+            ClienteEntity pE = new ClienteEntity(clienteID, nombre, correo, telefono, prov);
+            clienteRepository.save(pE);
+            throw new Exception("Se guardo nuevo cliente con ID" + clienteID);
         }
     }
 

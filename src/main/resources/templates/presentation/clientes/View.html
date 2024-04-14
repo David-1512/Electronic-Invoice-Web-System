@@ -91,8 +91,9 @@
                     <br>
                     <input type="hidden" name="esCliente" th:value="${cliente != null}">
                     <input type="hidden" name="idProv" th:value="${proveedor.get().getId()}">
+                    <p th:if="${error}" th:text="${error}" class="error-message"></p>
                     <button type="submit" class="btn btn-primary">Guardar</button>
-                    <a th:href="@{/clientes(idProv=${86952})}">Limpiar</a>
+                    <a th:href="@{/clientes(idProv=${session.proveedor.getId()})}">Limpiar</a>
                 </form>
             </div>
         </div>

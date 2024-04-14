@@ -78,7 +78,7 @@
                         <br>
                         <input type="hidden" name="idProv" th:value="${proveedor.get().getId()}">
                         <button type="submit" class="btn btn-primary">Guardar</button>
-                        <a th:href="@{/productos(idProv=${86952})}">Limpiar</a>
+                        <a th:href="@{/productos(idProv=${session.proveedor.getId()})}">Limpiar</a>
                     </form>
                 </div>
             </div>

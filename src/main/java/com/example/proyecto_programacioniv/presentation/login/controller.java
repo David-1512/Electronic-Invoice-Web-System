@@ -100,18 +100,29 @@ public class controller {
                 pE.setId(prov.getId());
                 pE.setContrasena(prov.getContrasena());
                 pE.setCorreo(prov.getCorreo());
-                pE.setTelefono("");
+                pE.setTelefono(prov.getTelefono());
                 pE.setEstado('E');
-                pE.setNombre("");
-                service.agregarHacienda(nif);
-                HaciendaEntity hE = service.findHaciendaByNIF(nif);
-                pE.setHaciendaByNif(hE);
-                service.agregarProveedor(pE);
+                pE.setNombre(prov.getNombre());
+//                service.agregarHacienda(nif);
+////                HaciendaEntity hE = service.findHaciendaByNIF(nif);
+////                pE.setHaciendaByNif(hE);
+                service.agregarProveedor(pE,nif);
+                return "presentation/login/View";
             } catch (Exception e) {
+                ProveedorEntity proveedor = new ProveedorEntity();
+                model.addAttribute("prov", proveedor);
                 model.addAttribute("error", e.getMessage());
+                return "presentation/login/ViewRegistro";
             }
-            return "presentation/login/View";
 
+    }
+
+    @GetMapping("/logout")
+    public String logout(HttpSession session, Model model){
+        ProveedorEntity proveedor = new ProveedorEntity();
+        model.addAttribute("proveedor", proveedor);
+        session.invalidate();
+        return "presentation/login/View";
     }
 
 
