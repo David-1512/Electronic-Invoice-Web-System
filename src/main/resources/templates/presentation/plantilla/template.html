@@ -16,11 +16,11 @@
                 <strong>Facturación S.A</strong>
             </a>
             <!--Enlaces-->
-            <div th:if="${administrador != null}">
+            <div th:if="${session.administrador != null}">
                 <div class="collapse navbar-collapse">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link" th:href = "@{/}">Inicio</a>
+                            <a class="nav-link" th:href = "@{/home}">Inicio</a>
                         </li>
 
                         <li class="nav-item">
@@ -40,7 +40,7 @@
                 <div class="collapse navbar-collapse">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link" th:href = "@{/}">Inicio</a>
+                            <a class="nav-link" th:href = "@{/home}">Inicio</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" th:href = "@{/clientes(idProv=${session.proveedor.getId()})}">Clientes</a>
@@ -68,12 +68,12 @@
         <p>Proyecto Programación IV &copy;  - 2023</p>
     </div>
     <div class="nav-item">
-        <select onchange="location = this.value;">
-            <option value="">Idiomas</option>
-            <option value="?lang=es">Español</option>
-            <option value="?lang=en">Inglés</option>
-            <option value="?lang=pt">Francés</option>
-        </select>
+<!--        <select onchange="location = this.value;">-->
+<!--            <option value="">Idiomas</option>-->
+<!--            <option value="?lang=es">Español</option>-->
+<!--            <option value="?lang=en">Inglés</option>-->
+<!--            <option value="?lang=pt">Francés</option>-->
+<!--        </select>-->
         <!--                        productos ver si se manda id proveedor-->
     </div>
 </footer>

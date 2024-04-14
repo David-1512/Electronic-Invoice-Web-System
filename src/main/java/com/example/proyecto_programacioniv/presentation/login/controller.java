@@ -75,7 +75,7 @@ public class controller {
             else{
                 model.addAttribute("administrador", admin);
                 model.addAttribute("proveedor", proveedor);
-
+                session.setAttribute("administrador", admin);
                 return "presentation/home/home";
             }
         }
@@ -123,6 +123,13 @@ public class controller {
         model.addAttribute("proveedor", proveedor);
         session.invalidate();
         return "presentation/login/View";
+    }
+
+    @GetMapping("/home")
+    public String home(HttpSession session, Model model){
+        ProveedorEntity proveedor = new ProveedorEntity();
+        model.addAttribute("proveedor", proveedor);
+        return "presentation/home/home";
     }
 
 
