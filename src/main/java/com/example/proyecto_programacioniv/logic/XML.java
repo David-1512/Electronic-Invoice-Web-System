@@ -25,7 +25,7 @@ public class XML {
 
             Node facturaNode;
             facturaNode = doc.createElement("FacturaElectronica");
-            doc.getDocumentElement().appendChild(facturaNode);
+            doc.appendChild(facturaNode);
 
             Element numFactura = doc.createElement("Clave");
             numFactura.appendChild(doc.createTextNode(factura.getNumFactura()));
@@ -109,9 +109,9 @@ public class XML {
                 detalleServicio.appendChild(lineaServicioElement);
             }
 
-           /*Element totalFacturaElement = doc.createElement("MontoTotalLinea");
-            totalFacturaElement.appendChild(doc.createTextNode(factura.getTotal()));
-            detalleServicio.appendChild(totalFacturaElement);*/
+           Element totalFacturaElement = doc.createElement("MontoTotalLinea");
+            totalFacturaElement.appendChild(doc.createTextNode(String.valueOf(factura.getTotal())));
+            detalleServicio.appendChild(totalFacturaElement);
 
             facturaNode.appendChild(detalleServicio);
 
@@ -120,7 +120,7 @@ public class XML {
             Transformer transformer = transformerFactory.newTransformer();
             DOMSource domSource = new DOMSource(doc);
             StreamResult streamResult = new StreamResult(new File(factura.getClienteByIdCliente().getId()+"_"+
-                    factura.getNumFactura()));
+                    factura.getNumFactura()+".xml"));
 
             transformer.transform(domSource, streamResult);
 

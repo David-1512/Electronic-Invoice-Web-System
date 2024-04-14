@@ -16,6 +16,9 @@ public class FacturasEntity {
     @Basic
     @Column(name = "fech_emision")
     private Date fechEmision;
+    @Basic
+    @Column(name = "total")
+    private Double total;
     @ManyToOne
     @JoinColumn(name = "id_cliente", referencedColumnName = "id", nullable = false)
     private ClienteEntity clienteByIdCliente;
@@ -41,17 +44,25 @@ public class FacturasEntity {
         this.fechEmision = fechEmision;
     }
 
+    public Double getTotal() {
+        return total;
+    }
+
+    public void setTotal(Double total) {
+        this.total = total;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         FacturasEntity that = (FacturasEntity) o;
-        return Objects.equals(numFactura, that.numFactura) && Objects.equals(fechEmision, that.fechEmision);
+        return Objects.equals(numFactura, that.numFactura) && Objects.equals(fechEmision, that.fechEmision) && Objects.equals(total, that.total);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(numFactura, fechEmision);
+        return Objects.hash(numFactura, fechEmision, total);
     }
 
     public ClienteEntity getClienteByIdCliente() {

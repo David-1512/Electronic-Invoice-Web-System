@@ -1,16 +1,10 @@
 package com.example.proyecto_programacioniv.logic;
 
-import com.itextpdf.text.Document;
-import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.PageSize;
+import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.PdfContentByte;
 import com.itextpdf.text.pdf.PdfWriter;
-import com.itextpdf.text.Font;
-import com.itextpdf.text.FontFactory;
-import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
-import com.itextpdf.text.BaseColor;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -23,82 +17,68 @@ public class PDF {
 
         Document document = new Document(PageSize.LETTER);
         PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(factura.getClienteByIdCliente().getId()+"_"+
-                factura.getNumFactura()));
+                factura.getNumFactura()+".pdf"));
         document.open();
 
         PdfContentByte cb = writer.getDirectContent();
 
-        Font font = FontFactory.getFont("Times New Roman", 12, Font.BOLDITALIC, new BaseColor(0,0,0));
-        drawText(cb,"FACTURACION S.A",894,57,font);
-        drawText(cb,"Clave de factura: ",847,91,font);
-        drawText(cb,factura.getNumFactura(),951,87,font);
+        Font font = FontFactory.getFont(FontFactory.HELVETICA, 12, Font.BOLDITALIC, new BaseColor(0, 0, 0));
+// Título de la factura
+        drawText(cb, "FACTURACION S.A", 50, 750, font);
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        drawText(cb,"Fecha emisión: ",828,106,font);
-        drawText(cb,dateFormat.format(factura.getFechEmision()),923,100,font);
+// Fecha de emisión
+        drawText(cb, "Fecha emisión: " + dateFormat.format(factura.getFechEmision()), 50, 730, font);
 
-        drawText(cb,"Proveedor",486,171,font);
-        drawText(cb,"Nombre: ",486,214,font);
-       drawText(cb,factura.getProveedorByIdProveedor().getNombre(),570,214,font);
-        drawText(cb,"Identificación: ",486,230,font);
-        drawText(cb,factura.getProveedorByIdProveedor().getId(),570,230,font);
-        drawText(cb,"Telefono: ",486,241,font);
-        drawText(cb,factura.getProveedorByIdProveedor().getTelefono(),570,241,font);
-        drawText(cb,"Correo electrónico: ",486,253,font);
-        drawText(cb,factura.getProveedorByIdProveedor().getCorreo(),570,253,font);
+// Datos del proveedor
+        drawText(cb, "Proveedor", 50, 700, font);
+        drawText(cb, "Nombre: " + factura.getProveedorByIdProveedor().getNombre(), 50, 680, font);
+        drawText(cb, "Identificación: " + factura.getProveedorByIdProveedor().getId(), 50, 660, font);
+        drawText(cb, "Telefono: " + factura.getProveedorByIdProveedor().getTelefono(), 50, 640, font);
+        drawText(cb, "Correo electrónico: " + factura.getProveedorByIdProveedor().getCorreo(), 50, 620, font);
 
-        drawText(cb,"Cliente",900,171,font);
-        drawText(cb,"Nombre: ",900,214,font);
-        drawText(cb,factura.getClienteByIdCliente().getNombre(),924,214,font);
-        drawText(cb,"Identificación: ",900,230,font);
-        drawText(cb,factura.getClienteByIdCliente().getId(),924,230,font);
-        drawText(cb,"Teléfono: ",900,241,font);
-        drawText(cb,factura.getClienteByIdCliente().getTelefono(),924,241,font);
-        drawText(cb,"Correo Electrónico: ",900,253,font);
-        drawText(cb,factura.getClienteByIdCliente().getCorreo(),924,253,font);
+// Datos del cliente
+        drawText(cb, "Cliente", 350, 700, font);
+        drawText(cb, "Nombre: " + factura.getClienteByIdCliente().getNombre(), 350, 680, font);
+        drawText(cb, "Identificación: " + factura.getClienteByIdCliente().getId(), 350, 660, font);
+        drawText(cb, "Teléfono: " + factura.getClienteByIdCliente().getTelefono(), 350, 640, font);
+        drawText(cb, "Correo Electrónico: " + factura.getClienteByIdCliente().getCorreo(), 350, 620, font);
 
-        Font headerFont = FontFactory.getFont(FontFactory.HELVETICA, 12, Font.BOLD,new BaseColor(0,0,0));
-        Font cellFont = FontFactory.getFont(FontFactory.HELVETICA, 10, Font.NORMAL);
 
-        PdfPTable table = new PdfPTable(3);
+// Detalles de la factura
+        PdfPTable table = new PdfPTable(5);
         table.setWidthPercentage(100);
 
-        PdfPCell cell = new PdfPCell(new Paragraph("Código", headerFont));
-        cell.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
-        cell.setBackgroundColor(new BaseColor(221, 221, 221));
+        PdfPCell cell = new PdfPCell(new Paragraph("Código", font));
+        cell.setHorizontalAlignment(Element.ALIGN_CENTER);
         table.addCell(cell);
 
-        cell = new PdfPCell(new Paragraph("Detalle", headerFont));
-        cell.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
-        cell.setBackgroundColor(new BaseColor(221, 221, 221));
+        cell = new PdfPCell(new Paragraph("Detalle", font));
+        cell.setHorizontalAlignment(Element.ALIGN_CENTER);
         table.addCell(cell);
 
-        cell = new PdfPCell(new Paragraph("Cantidad", headerFont));
-        cell.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
-        cell.setBackgroundColor(new BaseColor(221, 221, 221));
+        cell = new PdfPCell(new Paragraph("Cantidad", font));
+        cell.setHorizontalAlignment(Element.ALIGN_CENTER);
         table.addCell(cell);
 
-        cell = new PdfPCell(new Paragraph("Precio Unitario", headerFont));
-        cell.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
-        cell.setBackgroundColor(new BaseColor(221, 221, 221));
+        cell = new PdfPCell(new Paragraph("Precio Unitario", font));
+        cell.setHorizontalAlignment(Element.ALIGN_CENTER);
         table.addCell(cell);
 
-        cell = new PdfPCell(new Paragraph("Subtotal", headerFont));
-        cell.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
-        cell.setBackgroundColor(new BaseColor(221, 221, 221));
+        cell = new PdfPCell(new Paragraph("Subtotal", font));
+        cell.setHorizontalAlignment(Element.ALIGN_CENTER);
         table.addCell(cell);
 
-        for (LineaServicioEntity lineaServicio : factura.getLineaServiciosByNumFactura()){
-            table.addCell(new PdfPCell(new Paragraph(lineaServicio.getProductoByCodProducto().getCod(), cellFont)));
-            table.addCell(new PdfPCell(new Paragraph(lineaServicio.getProductoByCodProducto().getNombre(), cellFont)));
-            table.addCell(new Paragraph(String.valueOf(lineaServicio.getCantidad()), cellFont));
-            table.addCell(new Paragraph(String.valueOf(lineaServicio.getProductoByCodProducto().getPrecio()), cellFont));
-            table.addCell(new Paragraph(String.valueOf(lineaServicio.getSubtotal()), cellFont));
+        for (LineaServicioEntity lineaServicio : factura.getLineaServiciosByNumFactura()) {
+            table.addCell(new Paragraph(lineaServicio.getProductoByCodProducto().getCod(), font));
+            table.addCell(new Paragraph(lineaServicio.getProductoByCodProducto().getNombre(), font));
+            table.addCell(new Paragraph(String.valueOf(lineaServicio.getCantidad()), font));
+            table.addCell(new Paragraph(String.valueOf(lineaServicio.getProductoByCodProducto().getPrecio()), font));
+            table.addCell(new Paragraph(String.valueOf(lineaServicio.getSubtotal()), font));
         }
         document.add(table);
 
-        drawText(cb,"Monto total: ",668,810,font);
-       // drawText(cb,factura.getTotal(),668,923,font);
+        drawText(cb,"Monto total: "+factura.getTotal(),50,50,font);
 
         document.close();
     } catch (DocumentException | IOException e) {

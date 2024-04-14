@@ -4,6 +4,11 @@
 <body>
 <header th:replace="index :: header"></header>
 <div class = "centered">
+    <div>
+        <form th:action="@{/presentation/facturacion/}">
+            <button type="submit"  class="btn btn-primary">Volver</button>
+        </form>
+    </div>
     <table style = "border: 1px solid blue">
         <tr><th>Id</th>   <th>Nombre</th> <th>...</th></tr>
         <tr th:each = "c:${clientes}">
@@ -12,7 +17,7 @@
             <td>
                 <form th:action="@{/presentation/facturacion/selectCliente/{idCliente} (idCliente=${c.getId()})}">
                     <button type="submit"  class="btn btn-primary">Agregar</button>
-                    <input type ="hidden" name = nomProveedorCliente th:value="${nombreProveedor}">
+                    <input type ="hidden" name = idProveedorCliente th:value="${idProveedor}">
                 </form>
             </td>
         </tr>

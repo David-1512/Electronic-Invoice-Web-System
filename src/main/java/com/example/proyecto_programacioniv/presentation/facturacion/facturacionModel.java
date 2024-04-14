@@ -1,7 +1,10 @@
 package com.example.proyecto_programacioniv.presentation.facturacion;
 
-import com.example.proyecto_programacioniv.logic.LineaServicioEntity;
+import com.example.proyecto_programacioniv.logic.*;
+import com.itextpdf.text.DocumentException;
 
+import javax.xml.transform.TransformerException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +22,10 @@ public class facturacionModel {
         totalFactura = 0.0;
     }
 
-    public void agregarLineaServicio(LineaServicioEntity linea){
+    public void agregarLineaServicio(ProductoEntity producto, int cant){
+        LineaServicioEntity linea = new LineaServicioEntity();
+        linea.setCantidad(cant);
+        linea.setProductoByCodProducto(producto);
         linea.setCod(cont);
         linea.setSubtotal(subtotal(linea));
         totalFactura += subtotal(linea);
@@ -56,10 +62,27 @@ public class facturacionModel {
 
     }
 
-    private double subtotal(LineaServicioEntity linea){  //Cambiar a double
+    private double subtotal(LineaServicioEntity linea){
         double subtotal = linea.getCantidad() * linea.getProductoByCodProducto().getPrecio();
         return subtotal;
     }
 
     public double getTotalFactura(){return totalFactura;}
+
+    public void limpiarLista(){
+        listLinea.clear();
+        cont = 1;
+        totalFactura = 0.0;
+    }
+
+    public void generarPDF(FacturasEntity factura) throws DocumentException, IOException {
+        PDF pdf = new PDF();
+        pdf.createPDF(factura);
+    }
+
+    public void generarXML(FacturasEntity factura) throws TransformerException {
+        XML xml = new XML();
+        xml.crearXML(factura);
+
+    }
 }
