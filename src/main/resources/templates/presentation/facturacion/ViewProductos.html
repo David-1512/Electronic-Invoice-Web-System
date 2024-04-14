@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="index :: head"></head>
+<body>
+<header th:replace="index :: header"></header>
+<div class = "centered">
+    <table style = "border: 1px solid blue">
+        <tr><th>Id</th>   <th>Nombre</th> <th>Codigo</th> <th>...</th></tr>
+        <tr th:each = "p:${productos}">
+            <td th:text="${p.getCod()}"></td>
+            <td th:text="${p.getNombre()}"></td>
+            <td th:text="${p.getPrecio()}"></td>
+            <td>
+                <form th:action="@{/presentation/facturacion/selectProducto/{codProducto} (codProducto=${p.getCod()})}">
+                    <button type="submit"  class="btn btn-primary">Agregar</button>
+                    <input type ="hidden" name = nomProveedorCliente th:value="${nombreProveedor}">
+                    <input type="hidden" name= nomClienteProducto th:value="${nombreCliente}">
+                </form>
+            </td>
+        </tr>
+    </table>
+</div>
+<footer th:replace="index :: footer"></footer>
+</body>
+</html>
