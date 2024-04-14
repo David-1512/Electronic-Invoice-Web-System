@@ -1,39 +1,55 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Login</title>
-    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
-    <link rel="stylesheet" th:href="@{/css/login.css}">
-
+    <title>Datos del proveedor</title>
 </head>
 <body>
 
-<header th:replace="presentation/plantilla/template :: header"></header>
-
-<div class="Datos">
-    <form class="login-form" method="post" th:action="@{/presentation/login}" enctype="multipart/form-data" th:object="${proveedor}">
-        <div class="form-group">
-            <label> Identificacion:
-                <input type="text" class="form-control" th:field="${proveedor.id}" >
-            </label>
-        </div>
-        <div class="form-group">
-            <label> Clave:
-                <input type="password" class="form-control" th:field="${proveedor.contrasena}" >
-            </label>
-        </div>
-        <p th:if="${error}" th:text="${error}" class="error-message"></p>
-        <div class="form-group">
-            <button type="submit" class="btn btn-primary">Iniciar Sesion</button>
-        </div>
-
-    </form>
-    <a class="nav-link" th:href="@{/registro}">Registrarse</a>
+<div>
+    <h1>Datos del proveedor</h1>
+    <p>Por favor complete sus datos:</p>
+    <div class="container">
+        <form th:action="@{/proveedor/registro-datos}" method="post">
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <label for="id">ID:</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                           th:value="${proveedor != null ? proveedor.getId() : ''}"
+                           th:disabled="${proveedor != null}" required>
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="nombre">Nombre:</label>
+                    <input type="text" class="form-control" id="nombre" name="nombre"
+                           th:value="${proveedor != null ? proveedor.getNombre() : ''}" required>
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="correo">Correo:</label>
+                    <input type="email" class="form-control" id="correo" name="correo"
+                           th:value="${proveedor != null ? proveedor.getCorreo() : ''}" required>
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="telefono">Telefono:</label>
+                    <input type="text" class="form-control" id="telefono" name="telefono"
+                           th:value="${proveedor != null ? proveedor.getCorreo() : ''}" required>
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="nif">Nif:</label>
+                    <input type="text" class="form-control" id="nif" name="nif"
+                           th:value="${proveedor != null ? proveedor.getHaciendaByNif().getNif() : ''}"
+                           th:disabled="${proveedor != null}" required>
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="actividad">Nif:</label>
+                    <input type="text" class="form-control" id="actividad" name="actividad"
+                           th:value="${proveedor != null ? proveedor.getHaciendaByNif().getActEconomica() : ''}" required>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Guardar</button>
+            <!--            <a th:href="@{/productos(idProv=${86952})}">Limpiar</a>-->
+        </form>
+    </div>
 </div>
-
-<footer th:replace="presentation/plantilla/template :: footer"></footer>
-
 </body>
 </html>
 
