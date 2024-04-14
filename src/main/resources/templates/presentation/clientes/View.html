@@ -37,6 +37,7 @@
                         </tr>
                         </thead>
                         <tbody>
+
                         <tr th:each="c: ${clientes}">
                             <td>
                                 <a th:href="@{/clientes/eliminarCliente(idClien=${c.getId()},idProv=${proveedor.get().getId()})}">

@@ -9,18 +9,13 @@
 </head>
 <body>
 
-    <header th:replace="presentation/plantilla/template :: header"></header>
+<header th:replace="presentation/plantilla/template :: header"></header>
 
-    <div class="inicio-Sesion">
+<div class="Datos">
     <form class="login-form" method="post" th:action="@{/presentation/login}" enctype="multipart/form-data" th:object="${proveedor}">
-        <label>Tipo</label>
-        <select id="tipo" name="tipo">
-            <option value="administrador">Administrador</option>
-            <option value="proveedor">proveedor</option>
-        </select>
         <div class="form-group">
             <label> Identificacion:
-                <input type="text" class="form-control" th:field="${proveedor.id}">
+                <input type="text" class="form-control" th:field="${proveedor.id}" >
             </label>
         </div>
         <div class="form-group">
@@ -28,7 +23,6 @@
                 <input type="password" class="form-control" th:field="${proveedor.contrasena}" >
             </label>
         </div>
-
         <p th:if="${error}" th:text="${error}" class="error-message"></p>
         <div class="form-group">
             <button type="submit" class="btn btn-primary">Iniciar Sesion</button>
@@ -36,9 +30,9 @@
 
     </form>
     <a class="nav-link" th:href="@{/registro}">Registrarse</a>
-    </div>
+</div>
 
-    <footer th:replace="presentation/plantilla/template :: footer"></footer>
+<footer th:replace="presentation/plantilla/template :: footer"></footer>
 
 </body>
 </html>

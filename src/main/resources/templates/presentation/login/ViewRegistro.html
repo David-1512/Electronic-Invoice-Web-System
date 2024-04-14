@@ -1,10 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Registro</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/registro.css}">
+
 </head>
 <body>
+<header th:replace="presentation/plantilla/template :: header"></header>
+<div class="Registro"></div>
 <form method="post" th:action="@{/presentation/login/registro}" enctype="multipart/form-data" th:object="${prov}">
     <div>
         <label> Identificacion:
@@ -12,8 +17,8 @@
         </label>
     </div>
     <div>
-        <label> Clave:
-            <input type="password" th:field="${prov.contrasena}" required>
+        <label> Nombre:
+            <input type="text" th:field="${prov.nombre}" required>
         </label>
     </div>
     <div>
@@ -22,6 +27,17 @@
         </label>
     </div>
     <div>
+        <label> Clave:
+            <input type="password" th:field="${prov.contrasena}" required>
+        </label>
+    </div>
+    <div>
+        <label> telefono:
+            <input type="text" th:field="${prov.telefono}" required>
+        </label>
+    </div>
+
+    <div>
         <label> Nif:
             <input type="text" name="nif" required >
         </label>
@@ -29,7 +45,11 @@
     <div>
         <button type="submit" >Registrarse</button>
     </div>
+
 </form>
+</div>
+
+<footer th:replace="presentation/plantilla/template :: footer"></footer>
 </body>
 </html>
 

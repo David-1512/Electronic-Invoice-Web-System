@@ -11,12 +11,30 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
 
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand" th:href="@{/}">
                 <img th:src="@{/images/log.png}" alt="LogoEmpresa" height="40">
                 <strong>Facturación S.A</strong>
             </a>
             <!--Enlaces-->
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <div th:if="${administrador != null}">
+                <div class="collapse navbar-collapse">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link" th:href = "@{/}">Inicio</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link"  th:href = "@{/administracion}">Proveedores</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link"  th:href = "@{/administracion/solicitudes}">Solicitudes</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div th:if="${proveedor != null}">
+            <div class="collapse navbar-collapse">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
                         <a class="nav-link" th:href = "@{/}">Inicio</a>
@@ -25,20 +43,14 @@
                         <a class="nav-link" th:href = "@{/clientes(idProv=${86952})}">Clientes</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link"  th:href = "@{/administracion}">Proveedores</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link"  th:href = "@{/administracion/solicitudes}">Solicitudes</a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link"  th:href = "@{/presentation/facturacion/searchProveedor}">Facturación</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link"  th:href = "@{/productos(idProv=${86952})}">Productos</a>
-                        <!--                        productos ver si se manda id proveedor-->
                     </li>
                 </ul>
             </div>
+         </div>
         </div>
     </nav>
 </header>

@@ -7,6 +7,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -20,6 +21,8 @@ public class Service {
     private ProductoRepository productoRepository;
     @Autowired
     private  HaciendaRepository haciendaRepository;
+    @Autowired
+    private AdministradorRepository administradorRepository;
 
     public Iterable<ClienteEntity> clienteFindAll() { return clienteRepository.findAll(); }
 
@@ -224,5 +227,14 @@ public class Service {
 
     public void eliminarCliente(String clienteID, String proveedorID) {
         clienteRepository.deleteById(clienteID);//si la elimina de acá la elimina de todos lador
+    }
+
+    public AdministradorEntity buscarAdministrador(String id, String contrasena) {
+        for(AdministradorEntity c: administradorRepository.getListAdministrado()){
+            if(Objects.equals(c.getId(), id) && Objects.equals(c.getContrasena(), contrasena)){
+                return c;
+            }
+        }
+        return null;
     }
 }
