@@ -32,7 +32,7 @@ public class PDF {
             numFactura.setAlignment(Element.ALIGN_LEFT);
             document.add(numFactura);
 
-            Paragraph Proveedor = new Paragraph( ": "+factura.getNumFactura(), FontFactory.getFont(FontFactory.HELVETICA, 12));
+            Paragraph Proveedor = new Paragraph( "Proveedor:", FontFactory.getFont(FontFactory.HELVETICA, 12));
             numFactura.setAlignment(Element.ALIGN_LEFT);
             document.add(numFactura);
 
