@@ -58,8 +58,11 @@ public class facturacionModel {
                 .filter(i->i.getCod() == cod).findFirst().orElse(null);
         listLinea.remove(result);
         totalFactura -= subtotal(result);
+        int contAux = 1;
+        for (LineaServicioEntity lineaServicio : listLinea){
+            lineaServicio.setCod(contAux++);
+        }
         cont--;
-
     }
 
     private double subtotal(LineaServicioEntity linea){
