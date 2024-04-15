@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Facturacion</title>
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/home.css}">
 </head>
 
 <body>
@@ -11,7 +12,16 @@
 <header th:replace="presentation/plantilla/template :: header"></header>
 
 <!--Contenido-->
-<p>Página de inicio aquí se puede escribir lo que se quiera</p>
+<div class="container-home">
+    <div th:if="${session.administrador != null}">
+        <h1>Bienvenido(a) <span th:text="${session.administrador.getNombre()}"></span></h1>
+    </div>
+    <div th:if="${session.proveedor != null}">
+        <h1>Bienvenido(a) <span th:text="${session.proveedor.getNombre()}"></span></h1>
+    </div>
+</div>
+
+
 
 <footer th:replace="presentation/plantilla/template :: footer"></footer>
 
