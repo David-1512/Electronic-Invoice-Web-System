@@ -185,14 +185,16 @@ public class facturacionController {
                               @RequestParam("idClienteProducto") String idCliente){
 
         ProveedorEntity proveedor = service.returnProveedor(idProveedor);
-        ClienteEntity cliente = service.returnCliente(idCliente);
         ProductoEntity producto = service.returnProducto(codProducto);
+        if(idCliente != null && !idCliente.isEmpty()) {
+            ClienteEntity cliente = service.returnCliente(idCliente);
+            model.addAttribute("nombreCliente", cliente.getNombre());
+            model.addAttribute("idCliente",idCliente);
+        }
         model.addAttribute("cod",codProducto);
         model.addAttribute("detalleProducto",producto.getNombre());
-        model.addAttribute("nombreCliente", cliente.getNombre());
         model.addAttribute("nombreProveedor",proveedor.getNombre());
         model.addAttribute("idProveedor",idProveedor);
-        model.addAttribute("idCliente",idCliente);
         model.addAttribute("lineasServicios", modelfacturacion.findAll());
         model.addAttribute("totalFactura",modelfacturacion.getTotalFactura());
         return "presentation/facturacion/View";
@@ -243,6 +245,7 @@ public class facturacionController {
         model.addAttribute("idProveedor", idProveedor);
         model.addAttribute("lineasServicios", modelfacturacion.findAll());
         model.addAttribute("totalFactura",modelfacturacion.getTotalFactura());
+
         return "presentation/facturacion/View";
     }
 
@@ -250,9 +253,9 @@ public class facturacionController {
     public String guardarFactura( @RequestParam("idProveedorGuardar") String idProveedor,
                                   @RequestParam("idClienteGuardar") String idCliente,
                                   Model model){
+        model.addAttribute("idProveedor",idProveedor);
         if(idCliente != null  && !idCliente.isEmpty() &&  !modelfacturacion.findAll().isEmpty()) {
             service.facturaSave(idProveedor, idCliente, modelfacturacion.getTotalFactura(), modelfacturacion.findAll());
-            model.addAttribute("idProveedor",idProveedor);
             return "presentation/facturacion/ViewGuardado";
         }
         ProveedorEntity proveedor = service.returnProveedor(idProveedor);
@@ -264,7 +267,7 @@ public class facturacionController {
         model.addAttribute("nombreProveedor",proveedor.getNombre());
         model.addAttribute("lineasServicios", modelfacturacion.findAll());
         model.addAttribute("totalFactura",modelfacturacion.getTotalFactura());
-        return "presentation/facturacion/ViewFacturas";
+        return "presentation/facturacion/View";
     }
 
     @GetMapping("/verFacturas")
