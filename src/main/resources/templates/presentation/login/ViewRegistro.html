@@ -9,8 +9,9 @@
 </head>
 <body>
 <header th:replace="presentation/plantilla/template :: header"></header>
-<div class="Registro"></div>
+<div class="Registro">
 <form method="post" th:action="@{/presentation/login/registro}" enctype="multipart/form-data" th:object="${prov}">
+    <h2>Registro</h2>
     <div>
         <label> Identificacion:
             <input type="text" th:field="${prov.id}" required>
@@ -49,7 +50,6 @@
 
 </form>
 </div>
-
 <footer th:replace="presentation/plantilla/template :: footer"></footer>
 </body>
 </html>
