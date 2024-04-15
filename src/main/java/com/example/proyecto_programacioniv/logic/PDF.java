@@ -3,8 +3,6 @@ package com.example.proyecto_programacioniv.logic;
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.PdfContentByte;
 import com.itextpdf.text.pdf.PdfWriter;
-import com.itextpdf.text.pdf.PdfPCell;
-import com.itextpdf.text.pdf.PdfPTable;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -20,33 +18,26 @@ public class PDF {
                     factura.getNumFactura()+".pdf"));
             document.open();
 
-            PdfContentByte cb = writer.getDirectContent();
-
-            Font font = FontFactory.getFont(FontFactory.HELVETICA, 12, Font.BOLDITALIC, new BaseColor(0, 0, 0));
-
-            drawText(cb, "FACTURACION S.A", 50, 750, font);
+            Paragraph titulo = new Paragraph("FACTURACION S.A", FontFactory.getFont(FontFactory.HELVETICA, 12));
+            titulo.setAlignment(Element.ALIGN_CENTER);
+            document.add(titulo);
 
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-// Fecha de emisión
-            drawText(cb, "Fecha emisión: " + dateFormat.format(factura.getFechEmision()), 50, 730, font);
 
-// Datos del proveedor
-            drawText(cb, "Proveedor", 50, 700, font);
-            drawText(cb, "Nombre: " + factura.getProveedorByIdProveedor().getNombre(), 50, 680, font);
-            drawText(cb, "Identificación: " + factura.getProveedorByIdProveedor().getId(), 50, 660, font);
-            drawText(cb, "Telefono: " + factura.getProveedorByIdProveedor().getTelefono(), 50, 640, font);
-            drawText(cb, "Correo electrónico: " + factura.getProveedorByIdProveedor().getCorreo(), 50, 620, font);
+            Paragraph fechaEmision = new Paragraph("FECHA: "+ dateFormat.format(factura.getFechEmision()), FontFactory.getFont(FontFactory.HELVETICA, 12));
+            fechaEmision.setAlignment(Element.ALIGN_LEFT);
+            document.add(fechaEmision);
 
-// Datos del cliente
-            drawText(cb, "Cliente", 350, 700, font);
-            drawText(cb, "Nombre: " + factura.getClienteByIdCliente().getNombre(), 350, 680, font);
-            drawText(cb, "Identificación: " + factura.getClienteByIdCliente().getId(), 350, 660, font);
-            drawText(cb, "Teléfono: " + factura.getClienteByIdCliente().getTelefono(), 350, 640, font);
-            drawText(cb, "Correo Electrónico: " + factura.getClienteByIdCliente().getCorreo(), 350, 620, font);
+            Paragraph numFactura = new Paragraph( "FACTURA: "+factura.getNumFactura(), FontFactory.getFont(FontFactory.HELVETICA, 12));
+            numFactura.setAlignment(Element.ALIGN_LEFT);
+            document.add(numFactura);
+
+            Paragraph Proveedor = new Paragraph( ": "+factura.getNumFactura(), FontFactory.getFont(FontFactory.HELVETICA, 12));
+            numFactura.setAlignment(Element.ALIGN_LEFT);
+            document.add(numFactura);
 
 
-// Detalles de la factura
-            PdfPTable table = new PdfPTable(5);
+            /*PdfPTable table = new PdfPTable(5);
             table.setWidthPercentage(100);
 
             PdfPCell cell = new PdfPCell(new Paragraph("Código", font));
@@ -78,7 +69,7 @@ public class PDF {
             }
             document.add(table);
 
-            drawText(cb,"Monto total: "+factura.getTotal(),50,50,font);
+            drawText(cb,"Monto total: "+factura.getTotal(),50,50,font);*/
 
             document.close();
         } catch (DocumentException | IOException e) {

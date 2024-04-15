@@ -1,0 +1,14 @@
+.subtitulo{
+    margin-left: 10px;
+    text-align: left;
+    padding: 15px;
+    width: fit-content;
+}
+
+.buttom-verFacturas{
+    margin-left: 10px;
+    text-align: left;
+    border-radius: 4px; /* Bordes redondeados */
+    padding: 10px; /* Espaciado interno */
+    width: fit-content; /* Ancho ajustado al contenido */
+}

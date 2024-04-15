@@ -5,8 +5,9 @@
 <header th:replace="index :: header"></header>
 <div class = "centered">
     <div>
-        <form th:action="@{/presentation/facturacion/}">
+        <form th:action="@{/presentation/facturacion/estadoInicio}">
             <button type="submit"  class="btn btn-primary">Volver</button>
+            <input type ="hidden" name = idProveedor th:value="${idProveedor}">
         </form>
     </div>
     <div>

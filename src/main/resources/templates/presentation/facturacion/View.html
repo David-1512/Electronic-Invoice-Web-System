@@ -1,14 +1,23 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="index :: head"></head>
+<head>
+    <meta charset="UTF-8">
+    <title>Facturacion</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/factura.css}">
+</head>
 <body>
 <header th:replace="index :: header"></header>
-<div class="container mt-3 text-center">
-    <div>
+<div class="container-box">
+    <div class="subtitulo">
+        <h2>Facturación</h2>
+    </div>
+        <div class="buttom-verFacturas">
         <form th:action="@{/presentation/facturacion/verFacturas}">
             <button type="submit"  class="btn btn-primary">Ver Facturas</button>
+            <input type ="hidden" name = idProveedorVerFactura th:value="${idProveedor}">
         </form>
-    </div>
+        </div>
     <div class="form-group row align-items-center">
         <label for="nombreProveedor" class="col-form-label col-auto">Proveedor:</label>
         <div class="col-auto">
@@ -44,7 +53,9 @@
             </div>
         </div>
     </form>
-    <table class="table mt-3">
+    <div>
+    </div>
+    <table class="table mt-3 table-hover table-fixed">
         <thead class="thead-dark">
         <tr>
             <th scope="col">#NumLinea</th>
@@ -90,19 +101,18 @@
         </tr>
         </tbody>
     </table>
-</div>
-<div class="form-group row align-items-center">
-    <label for="totalFactura" class="col-form-label col-auto">Total Factura:</label>
-    <div class="col-auto">
-        <input type="number" class="form-control" id="totalFactura" th:value="${totalFactura}" readonly>
+    <div class="form-group row align-items-center">
+        <label for="totalFactura" class="col-form-label col-auto">Total Factura:</label>
+        <div class="col-auto">
+            <input type="number" class="form-control" id="totalFactura" th:value="${totalFactura}" readonly>
+        </div>
     </div>
+    <form th:action="@{/presentation/facturacion/guardarFactura}" th:method="post">
+        <input type ="hidden" name = idProveedorGuardar th:value="${idProveedor}">
+        <input type="hidden" name= idClienteGuardar th:value="${idCliente}">
+        <button type="submit"  class="btn btn-primary">Guardar</button>
+    </form>
 </div>
-<form th:action="@{/presentation/facturacion/guardarFactura}" th:method="post">
-    <input type ="hidden" name = idProveedorGuardar th:value="${idProveedor}">
-    <input type="hidden" name= idClienteGuardar th:value="${idCliente}">
-    <button type="submit"  class="btn btn-primary">Guardar</button>
-</form>
-
 <footer th:replace="index :: footer"></footer>
 </body>
 </html>
