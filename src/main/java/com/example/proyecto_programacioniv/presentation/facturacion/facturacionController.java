@@ -26,8 +26,8 @@ public class facturacionController {
         modelfacturacion = new facturacionModel();
     }
 
-    @GetMapping("/")
-    public String show(Model model,@RequestParam("idProv") String idProveedor){
+    @GetMapping("/{idProveedor}")
+    public String show(Model model,@PathVariable String idProveedor){
         ProveedorEntity proveedor = service.returnProveedor(idProveedor);
         model.addAttribute("nombreProveedor",proveedor.getNombre());
         model.addAttribute("idProveedor",proveedor.getId());
