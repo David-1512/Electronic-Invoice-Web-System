@@ -1,28 +1,35 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="index :: head"></head>
+<head>
+    <meta charset="UTF-8">
+    <title>Clientes</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/clientes.css}">
+</head>
 <body>
 <header th:replace="index :: header"></header>
 <div class = "centered">
-    <div>
+    <div class="btn-container">
         <form th:action="@{/presentation/facturacion/estadoInicio}">
             <button type="submit"  class="btn btn-primary">Volver</button>
             <input type ="hidden" name = idProveedor th:value="${idProveedor}">
         </form>
     </div>
-    <table style = "border: 1px solid blue">
-        <tr><th>Id</th>   <th>Nombre</th> <th>...</th></tr>
-        <tr th:each = "c:${clientes}">
-            <td th:text="${c.getId()}"></td>
-            <td th:text="${c.getNombre()}"></td>
-            <td>
-                <form th:action="@{/presentation/facturacion/selectCliente/{idCliente} (idCliente=${c.getId()})}">
-                    <button type="submit"  class="btn btn-primary">Agregar</button>
-                    <input type ="hidden" name = idProveedorCliente th:value="${idProveedor}">
-                </form>
-            </td>
-        </tr>
-    </table>
+    <div style="overflow-y: auto; max-height: 300px;">
+        <table>
+            <tr><th>Id</th>   <th>Nombre</th> <th>...</th></tr>
+            <tr th:each = "c:${clientes}">
+                <td th:text="${c.getId()}"></td>
+                <td th:text="${c.getNombre()}"></td>
+                <td>
+                    <form th:action="@{/presentation/facturacion/selectCliente/{idCliente} (idCliente=${c.getId()})}">
+                        <button type="submit"  class="btn btn-primary">Agregar</button>
+                        <input type ="hidden" name = idProveedorCliente th:value="${idProveedor}">
+                    </form>
+                </td>
+            </tr>
+        </table>
+    </div>
 </div>
 <footer th:replace="index :: footer"></footer>
 </body>
