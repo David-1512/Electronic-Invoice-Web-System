@@ -8,20 +8,21 @@ import java.util.Objects;
 @Entity
 @Table(name = "producto", schema = "proyecto_prograiv", catalog = "")
 public class ProductoEntity {
+
     @Id
-    @Column(name = "cod", nullable = false)
+    @Column(name = "cod")
     private String cod;
     @Basic
     @Column(name = "nombre")
     private String nombre;
     @Basic
     @Column(name = "precio")
-    private double precio;
+    private Double precio;
+    @OneToMany(mappedBy = "productoByCodProducto")
+    private Collection<LineaServicioEntity> lineaServiciosByCod;
     @ManyToOne
     @JoinColumn(name = "id_proveedor", referencedColumnName = "id", nullable = false)
     private ProveedorEntity proveedorByIdProveedor;
-    @OneToMany(mappedBy = "productoByCodProducto")
-    private Collection<LineaServicioEntity> lineaServiciosByCod;
 
     public ProductoEntity() {
     }
@@ -32,9 +33,6 @@ public class ProductoEntity {
         this.nombre = nom;
         this.proveedorByIdProveedor= proveedorID;
     }
-
-
-
     public String getCod() {
         return cod;
     }
@@ -51,11 +49,11 @@ public class ProductoEntity {
         this.nombre = nombre;
     }
 
-    public double getPrecio() {
+    public Double getPrecio() {
         return precio;
     }
 
-    public void setPrecio(double precio) {
+    public void setPrecio(Double precio) {
         this.precio = precio;
     }
 
@@ -64,20 +62,12 @@ public class ProductoEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ProductoEntity that = (ProductoEntity) o;
-        return precio == that.precio && Objects.equals(cod, that.cod) && Objects.equals(nombre, that.nombre);
+        return Objects.equals(cod, that.cod) && Objects.equals(nombre, that.nombre) && Objects.equals(precio, that.precio);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(cod, nombre, precio);
-    }
-
-    public ProveedorEntity getProveedorByIdProveedor() {
-        return proveedorByIdProveedor;
-    }
-
-    public void setProveedorByIdProveedor(ProveedorEntity proveedorByIdProveedor) {
-        this.proveedorByIdProveedor = proveedorByIdProveedor;
     }
 
     public Collection<LineaServicioEntity> getLineaServiciosByCod() {
@@ -86,5 +76,13 @@ public class ProductoEntity {
 
     public void setLineaServiciosByCod(Collection<LineaServicioEntity> lineaServiciosByCod) {
         this.lineaServiciosByCod = lineaServiciosByCod;
+    }
+
+    public ProveedorEntity getProveedorByIdProveedor() {
+        return proveedorByIdProveedor;
+    }
+
+    public void setProveedorByIdProveedor(ProveedorEntity proveedorByIdProveedor) {
+        this.proveedorByIdProveedor = proveedorByIdProveedor;
     }
 }

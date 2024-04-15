@@ -8,7 +8,6 @@ import java.util.Objects;
 @Table(name = "linea_servicio", schema = "proyecto_prograiv", catalog = "")
 public class LineaServicioEntity {
 
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "cod")
     private int cod;
@@ -17,7 +16,10 @@ public class LineaServicioEntity {
     private int cantidad;
     @Basic
     @Column(name = "subtotal")
-    private int subtotal;
+    private Double subtotal;
+    @Basic
+    @Column(name = "id_linea")
+    private String idLinea;
     @ManyToOne
     @JoinColumn(name = "cod_producto", referencedColumnName = "cod", nullable = false)
     private ProductoEntity productoByCodProducto;
@@ -41,12 +43,20 @@ public class LineaServicioEntity {
         this.cantidad = cantidad;
     }
 
-    public int getSubtotal() {
+    public Double getSubtotal() {
         return subtotal;
     }
 
-    public void setSubtotal(int subtotal) {
+    public void setSubtotal(Double subtotal) {
         this.subtotal = subtotal;
+    }
+
+    public String getIdLinea() {
+        return idLinea;
+    }
+
+    public void setIdLinea(String idLinea) {
+        this.idLinea = idLinea;
     }
 
     @Override
@@ -54,12 +64,12 @@ public class LineaServicioEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         LineaServicioEntity that = (LineaServicioEntity) o;
-        return cod == that.cod && cantidad == that.cantidad && subtotal == that.subtotal;
+        return cod == that.cod && cantidad == that.cantidad && Objects.equals(subtotal, that.subtotal) && Objects.equals(idLinea, that.idLinea);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(cod, cantidad, subtotal);
+        return Objects.hash(cod, cantidad, subtotal, idLinea);
     }
 
     public ProductoEntity getProductoByCodProducto() {

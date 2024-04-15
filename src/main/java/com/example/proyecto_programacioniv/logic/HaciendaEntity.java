@@ -4,13 +4,12 @@ import jakarta.persistence.*;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 import java.util.Objects;
 
 @Entity
 @Table(name = "hacienda", schema = "proyecto_prograiv", catalog = "")
 public class HaciendaEntity {
-    //@GeneratedValue(strategy = GenerationType.IDENTITY)
+
     @Id
     @Column(name = "nif")
     private String nif;

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="index :: head"></head>
+<body>
+<header th:replace="index :: header"></header>
+<div class = "centered">
+    <div>
+        <form th:action="@{/presentation/facturacion/}">
+            <button type="submit"  class="btn btn-primary">Volver</button>
+        </form>
+    </div>
+    <div>
+        <h1>Factura guardada correctamente !!!!</h1>
+    </div>
+
+</div>
+<footer th:replace="index :: footer"></footer>
+</body>
+</html>

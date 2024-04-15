@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="index :: head"></head>
+<body>
+<header th:replace="index :: header"></header>
+<div class = "centered">
+    <div>
+        <form th:action="@{/presentation/facturacion/}">
+            <button type="submit"  class="btn btn-primary">Volver</button>
+        </form>
+    </div>
+    <table style = "border: 1px solid blue">
+        <tr><th>NumFactura</th>   <th>NomCliente</th> <th>Generar PDF</th> <th>Generar XML</th> <th>...</th></tr>
+        <tr th:each = "f:${facturas}">
+            <td th:text="${f.getNumFactura()}"></td>
+            <td th:text="${f.getClienteByIdCliente().getNombre()}"></td>
+            <td>
+                <form th:action="@{/presentation/facturacion/generarPDF/{numFactura} (numFactura=${f.getNumFactura()})}">
+                    <button type="submit"  class="btn btn-primary">PDF</button>
+                </form>
+            </td>
+            <td>
+                <form th:action="@{/presentation/facturacion/generarXML/{numFactura} (numFactura=${f.getNumFactura()})}">
+                    <button type="submit"  class="btn btn-primary">XML</button>
+                </form>
+            </td>
+            <td th:value="${mensaje}"></td>
+        </tr>
+    </table>
+</div>
+<footer th:replace="index :: footer"></footer>
+</body>
+</html>

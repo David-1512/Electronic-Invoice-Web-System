@@ -46,7 +46,7 @@
                             <a class="nav-link" th:href = "@{/clientes(idProv=${session.proveedor.getId()})}">Clientes</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link"  th:href = "@{/presentation/facturacion/searchProveedor}">Facturación</a>
+                            <a class="nav-link"  th:href = "@{/presentation/facturacion/(idProv=${session.proveedor.getId()})}">Facturación</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link"  th:href = "@{/productos(idProv=${session.proveedor.getId()})}">Productos</a>

@@ -7,11 +7,10 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "cliente", schema = "proyecto_prograiv", catalog = "") //tabla a la que hace referencia
-public class ClienteEntity {//implementar serializable luego
+public class ClienteEntity {
 
-    //@GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Id//llave primaria
-    @Column(name = "id")// se pone cuando no se llama igual en la base de datos
+    @Id
+    @Column(name = "id")
     private String id;
     @Basic
     @Column(name = "nombre")
@@ -22,12 +21,11 @@ public class ClienteEntity {//implementar serializable luego
     @Basic
     @Column(name = "telefono")
     private String telefono;
+    @ManyToOne
+    @JoinColumn(name = "id_proveedor", referencedColumnName = "id")
+    private ProveedorEntity proveedorByIdProveedor;
     @OneToMany(mappedBy = "clienteByIdCliente")
     private Collection<FacturasEntity> facturasById;
-
-    @ManyToOne
-    @JoinColumn(name = "id_proveedor", referencedColumnName = "id", nullable = false)
-    private ProveedorEntity proveedorByIdProveedor;
 
     public ClienteEntity(String clienteID, String nombre, String correo, String telefono, ProveedorEntity prov) {
         this.id=clienteID;
@@ -73,14 +71,6 @@ public class ClienteEntity {//implementar serializable luego
         this.telefono = telefono;
     }
 
-    public ProveedorEntity getProveedorByIdProveedor() {
-        return proveedorByIdProveedor;
-    }
-
-    public void setProveedorByIdProveedor(ProveedorEntity proveedorByIdProveedor) {
-        this.proveedorByIdProveedor = proveedorByIdProveedor;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -92,6 +82,14 @@ public class ClienteEntity {//implementar serializable luego
     @Override
     public int hashCode() {
         return Objects.hash(id, nombre, correo, telefono);
+    }
+
+    public ProveedorEntity getProveedorByIdProveedor() {
+        return proveedorByIdProveedor;
+    }
+
+    public void setProveedorByIdProveedor(ProveedorEntity proveedorByIdProveedor) {
+        this.proveedorByIdProveedor = proveedorByIdProveedor;
     }
 
     public Collection<FacturasEntity> getFacturasById() {

@@ -1,14 +1,9 @@
 package com.example.proyecto_programacioniv.logic;
+
 import com.example.proyecto_programacioniv.data.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.xml.sax.SAXException;
-
-import javax.xml.parsers.ParserConfigurationException;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.sql.Date;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @org.springframework.stereotype.Service("service")
@@ -23,6 +18,10 @@ public class Service {
     private  HaciendaRepository haciendaRepository;
     @Autowired
     private AdministradorRepository administradorRepository;
+    @Autowired
+    private FacturaRepository facturaRepository;
+    @Autowired
+    private LineaServicioRepository lineaServicioRepository;
 
     public Iterable<ClienteEntity> clienteFindAll() { return clienteRepository.findAll(); }
 
@@ -285,4 +284,74 @@ public class Service {
             throw new Exception("Error, el correo digitado ya existe ");
         }
     }
+     //Facturacion
+     public boolean verificarProducto(String cod, String idProveedor) {
+         ProductoEntity producto = productoRepository.findById(cod).orElse(null);
+         if (producto.getProveedorByIdProveedor().getId().equals(idProveedor)) {
+             return true;
+         }
+         return false;
+     }
+
+    public boolean verificarCliente(String id, String idProveedor) {
+        ClienteEntity cliente = clienteRepository.findById(id).orElse(null);
+        if (cliente.getProveedorByIdProveedor().getId().equals(idProveedor)) {
+            return true;
+        }
+        return false;
+    }
+
+    public List<ProductoEntity> getProductosPorProveedor(String idProveedor) {
+        List<ProductoEntity> productosConProveedor = new ArrayList<>();
+        for (ProductoEntity producto : productoRepository.findAll()) {
+            if (producto.getProveedorByIdProveedor().getId().equals(idProveedor)) {
+                productosConProveedor.add(producto);
+            }
+        }
+        return productosConProveedor;
+    }
+
+    public List<ClienteEntity> getClientesPorProveedor(String idProveedor) {
+        List<ClienteEntity> clientesConProveedor = new ArrayList<>();
+        for (ClienteEntity cliente : clienteRepository.findAll()) {
+            if (cliente.getProveedorByIdProveedor().getId().equals(idProveedor)) {
+                clientesConProveedor.add(cliente);
+            }
+        }
+        return clientesConProveedor;
+    }
+    public FacturasEntity  returnFactura(String num){return facturaRepository.findById(num).orElse(null);}
+    public ClienteEntity returnCliente(String id){return clienteRepository.findById(id).orElse(null);}
+
+    public ProveedorEntity returnProveedor(String id){return proveedorRepository.findById(id).orElse(null);}
+
+    public ProductoEntity returnProducto(String cod){return productoRepository.findById(cod).orElse(null);}
+
+
+    public void facturaSave(String idProveedor, String idCliente, double total, Collection<LineaServicioEntity> lineas){
+        FacturasEntity factura = new FacturasEntity();
+        String numeroFactura = String.format("%010d", facturaRepository.count()+1);
+        factura.setNumFactura(numeroFactura);
+        Date fechaActual = new Date(System.currentTimeMillis());
+        Date fecha = new Date(fechaActual.getTime());
+        factura.setFechEmision(fecha);
+        factura.setTotal(total);
+        factura.setClienteByIdCliente(returnCliente(idCliente));
+        factura.setProveedorByIdProveedor(returnProveedor(idProveedor));
+        facturaRepository.save(factura);
+        for (LineaServicioEntity lineaServicio : lineas){
+            lineaServicio.setIdLinea(String.valueOf(lineaServicio.getCod()));
+            lineaServicio.setCod(lineaServicio.getCod()+Integer.parseInt(lineaServicio.getProductoByCodProducto().getCod()));
+            lineaServicio.setFacturasByNumFactura(factura);
+            lineaServicioRepository.save(lineaServicio);
+        }
+    }
+
+    public Iterable<ProductoEntity> productoFindAll(){
+        return productoRepository.findAll();
+    }
+
+    public Iterable<FacturasEntity> facturaFindAll(){return facturaRepository.findAll();}
+
+
 }

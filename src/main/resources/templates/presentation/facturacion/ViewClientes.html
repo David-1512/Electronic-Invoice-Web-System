@@ -1,0 +1,85 @@
+ViewClientes
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="index :: head"></head>
+<body>
+<header th:replace="index :: header"></header>
+<div class = "centered">
+    <div>
+        <form th:action="@{/presentation/facturacion/}">
+            <button type="submit"  class="btn btn-primary">Volver</button>
+        </form>
+    </div>
+    <table style = "border: 1px solid blue">
+        <tr><th>Id</th>   <th>Nombre</th> <th>...</th></tr>
+        <tr th:each = "c:${clientes}">
+            <td th:text="${c.getId()}"></td>
+            <td th:text="${c.getNombre()}"></td>
+            <td>
+                <form th:action="@{/presentation/facturacion/selectCliente/{idCliente} (idCliente=${c.getId()})}">
+                    <button type="submit"  class="btn btn-primary">Agregar</button>
+                    <input type ="hidden" name = idProveedorCliente th:value="${idProveedor}">
+                </form>
+            </td>
+        </tr>
+    </table>
+</div>
+<footer th:replace="index :: footer"></footer>
+</body>
+</html>
+
+ViewFacturas
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="index :: head"></head>
+<body>
+<header th:replace="index :: header"></header>
+<div class = "centered">
+    <div>
+        <form th:action="@{/presentation/facturacion/}">
+            <button type="submit"  class="btn btn-primary">Volver</button>
+        </form>
+    </div>
+    <table style = "border: 1px solid blue">
+        <tr><th>NumFactura</th>   <th>NomCliente</th> <th>Generar PDF</th> <th>Generar XML</th> <th>...</th></tr>
+        <tr th:each = "f:${facturas}">
+            <td th:text="${f.getNumFactura()}"></td>
+            <td th:text="${f.getClienteByIdCliente().getNombre()}"></td>
+            <td>
+                <form th:action="@{/presentation/facturacion/generarPDF/{numFactura} (numFactura=${f.getNumFactura()})}">
+                    <button type="submit"  class="btn btn-primary">PDF</button>
+                </form>
+            </td>
+            <td>
+                <form th:action="@{/presentation/facturacion/generarXML/{numFactura} (numFactura=${f.getNumFactura()})}">
+                    <button type="submit"  class="btn btn-primary">XML</button>
+                </form>
+            </td>
+            <td th:value="${mensaje}"></td>
+        </tr>
+    </table>
+</div>
+<footer th:replace="index :: footer"></footer>
+</body>
+</html>
+
+ViewGuardado
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="index :: head"></head>
+<body>
+<header th:replace="index :: header"></header>
+<div class = "centered">
+    <div>
+        <form th:action="@{/presentation/facturacion/}">
+            <button type="submit"  class="btn btn-primary">Volver</button>
+        </form>
+    </div>
+    <div>
+        <h1>Factura guardada correctamente !!!!</h1>
+    </div>
+
+</div>
+<footer th:replace="index :: footer"></footer>
+</body>
+</html>
