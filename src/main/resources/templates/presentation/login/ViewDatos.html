@@ -49,6 +49,7 @@
                            th:value="${proveedor != null ? proveedor.getHaciendaByNif().getActEconomica() : ''}" required>
                 </div>
             </div>
+            <p th:if="${error}" th:text="${error}" class="error-message"></p>
             <button type="submit" class="btn btn-primary">Guardar</button>
         </form>
     </div>
